@@ -1,0 +1,2517 @@
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduForm — Sell & Buy Joining and Interview Forms Online</title>
+<meta name="description" content="EduForm helps schools sell joining forms, interview forms and joining instructions online. Parents pay with mobile money and download instantly.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ink: '#0b1020',
+        brand: {
+          50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',
+          500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'
+        },
+        accent: {400:'#fbbf24',500:'#f59e0b',600:'#d97706'}
+      },
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans"','Inter','system-ui','-apple-system','sans-serif']
+      },
+      boxShadow: {
+        soft: '0 10px 40px -12px rgba(15,23,42,.18)',
+        glow: '0 20px 60px -20px rgba(79,70,229,.55)'
+      },
+      borderRadius: { '4xl':'2rem' }
+    }
+  }
+}
+</script>
+<style>
+  :root{ --brand:#4f46e5; --accent:#f59e0b; }
+  html,body{ max-width:100%; overflow-x:hidden; }
+  body{ font-family:'Plus Jakarta Sans',Inter,system-ui,sans-serif; background:#f7f8fc; color:#0b1020; -webkit-font-smoothing:antialiased; }
+  .grad-text{ background:linear-gradient(95deg,#4f46e5 0%,#7c3aed 45%,#ec4899 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .grad-brand{ background:linear-gradient(120deg,#4f46e5 0%,#6d28d9 55%,#9333ea 100%); }
+  .grad-dark{ background:linear-gradient(140deg,#0b1020 0%,#151a35 55%,#1e1b4b 100%); }
+  .mesh{
+    background-image:
+      radial-gradient(at 12% 8%, rgba(99,102,241,.28) 0px, transparent 55%),
+      radial-gradient(at 88% 4%, rgba(236,72,153,.20) 0px, transparent 50%),
+      radial-gradient(at 70% 80%, rgba(245,158,11,.16) 0px, transparent 55%);
+  }
+  .grid-bg{
+    background-image:linear-gradient(rgba(15,23,42,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.045) 1px,transparent 1px);
+    background-size:46px 46px;
+  }
+  .glass{ background:rgba(255,255,255,.72); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+  .card-hover{ transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s; }
+  .card-hover:hover{ transform:translateY(-6px); box-shadow:0 26px 60px -26px rgba(30,27,75,.35); }
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in{ opacity:1; transform:none; }
+  @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .floaty{ animation:float 6s ease-in-out infinite; }
+  @keyframes float2{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+  .floaty-2{ animation:float2 7.5s ease-in-out infinite; }
+  @keyframes pop{ from{opacity:0; transform:translateY(14px) scale(.97)} to{opacity:1; transform:none} }
+  .pop{ animation:pop .32s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes slideIn{ from{opacity:0; transform:translateX(28px)} to{opacity:1; transform:none} }
+  .slide-in{ animation:slideIn .35s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes spinSlow{ to{ transform:rotate(360deg) } }
+  .spin{ animation:spinSlow .9s linear infinite; }
+  @keyframes shimmer{ 0%{background-position:-500px 0} 100%{background-position:500px 0} }
+  .skeleton{ background:linear-gradient(90deg,#eef1f7 25%,#e2e7f2 37%,#eef1f7 63%); background-size:900px 100%; animation:shimmer 1.4s infinite linear; }
+  .modal{ position:fixed; inset:0; z-index:90; display:none; align-items:center; justify-content:center; padding:14px; }
+  .modal.open{ display:flex; }
+  .modal-panel{ animation:pop .3s cubic-bezier(.2,.8,.2,1) both; max-height:92vh; overflow-y:auto; }
+  .no-scrollbar::-webkit-scrollbar{ display:none; }
+  .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
+  .field{
+    width:100%; border:1.5px solid #e2e8f0; background:#fff; border-radius:14px; padding:.72rem .9rem;
+    font-size:.92rem; color:#0b1020; transition:border-color .2s, box-shadow .2s, background .2s;
+  }
+  .field::placeholder{ color:#94a3b8; }
+  .field:focus{ outline:none; border-color:#6366f1; box-shadow:0 0 0 4px rgba(99,102,241,.14); }
+  .field:disabled{ background:#f1f5f9; color:#64748b; }
+  label.lbl{ display:block; font-size:.78rem; font-weight:700; color:#334155; margin-bottom:6px; letter-spacing:.01em; }
+  .chip{ display:inline-flex; align-items:center; gap:6px; font-size:.72rem; font-weight:700; padding:.28rem .6rem; border-radius:999px; }
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem; font-weight:700; border-radius:14px; transition:transform .18s, box-shadow .25s, background .25s, color .2s, border-color .2s; }
+  .btn:active{ transform:scale(.975); }
+  .otp-box{ width:46px; height:56px; text-align:center; font-size:1.25rem; font-weight:800; border:1.5px solid #e2e8f0; border-radius:14px; background:#fff; }
+  .otp-box:focus{ outline:none; border-color:#6366f1; box-shadow:0 0 0 4px rgba(99,102,241,.14); }
+  .tab-btn{ position:relative; }
+  .tab-btn.active{ color:#4f46e5; }
+  .tab-btn.active::after{ content:''; position:absolute; left:14px; right:14px; bottom:-1px; height:2.5px; background:#4f46e5; border-radius:4px; }
+  .acc-body{ max-height:0; overflow:hidden; transition:max-height .38s cubic-bezier(.2,.7,.2,1); }
+  .step-dot{ transition:all .3s; }
+  .bar{ transition:height .9s cubic-bezier(.2,.7,.2,1); }
+  .marquee-track{ display:flex; gap:3.5rem; animation:marquee 26s linear infinite; width:max-content; }
+  @keyframes marquee{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  table.tbl th{ font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:#64748b; font-weight:800; text-align:left; padding:.7rem .85rem; background:#f8fafc; }
+  table.tbl td{ padding:.85rem; font-size:.88rem; border-top:1px solid #eef2f7; vertical-align:middle; }
+  .row-hover:hover{ background:#fafbff; }
+  input[type=range]{ -webkit-appearance:none; height:6px; border-radius:99px; background:#e2e8f0; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:#4f46e5; border:3px solid #fff; box-shadow:0 2px 10px rgba(79,70,229,.5); cursor:pointer; }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ============ HEADER ============ -->
+<header id="appHeader" class="sticky top-0 z-[70] glass border-b border-slate-200/70">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="h-16 flex items-center justify-between gap-3">
+      <a href="#" onclick="goHome();return false;" class="flex items-center gap-2.5 shrink-0">
+        <span class="h-9 w-9 rounded-xl grad-brand grid place-items-center shadow-glow">
+          <svg viewBox="0 0 24 24" class="h-5 w-5 text-white" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+        </span>
+        <span class="font-extrabold text-[1.06rem] tracking-tight">EduForm<span class="text-brand-600">.</span></span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-1 text-[.9rem] font-semibold text-slate-600">
+        <a href="#features" class="px-3.5 py-2 rounded-lg hover:bg-slate-100 hover:text-ink transition">Features</a>
+        <a href="#how" class="px-3.5 py-2 rounded-lg hover:bg-slate-100 hover:text-ink transition">How it works</a>
+        <a href="#schools" class="px-3.5 py-2 rounded-lg hover:bg-slate-100 hover:text-ink transition">Find a school</a>
+        <a href="#pricing" class="px-3.5 py-2 rounded-lg hover:bg-slate-100 hover:text-ink transition">Pricing</a>
+        <a href="#faq" class="px-3.5 py-2 rounded-lg hover:bg-slate-100 hover:text-ink transition">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <div id="headerGuest" class="hidden sm:flex items-center gap-2">
+          <button onclick="openAuth('phone')" class="btn px-4 py-2.5 text-[.85rem] text-slate-700 hover:bg-slate-100">Sign in</button>
+          <button onclick="openAuth('google')" class="btn px-4 py-2.5 text-[.85rem] bg-ink text-white hover:bg-slate-800 shadow-soft">
+            <svg viewBox="0 0 24 24" class="h-4 w-4"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.65l-3.57-2.77c-.99.66-2.26 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.84 14.11a6.6 6.6 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84Z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.05l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38Z"/></svg>
+            Continue with Google
+          </button>
+        </div>
+
+        <div id="headerUser" class="hidden relative">
+          <button onclick="toggleUserMenu()" class="flex items-center gap-2 pl-1.5 pr-3 py-1.5 rounded-full border border-slate-200 bg-white hover:shadow-soft transition">
+            <span id="userAvatar" class="h-8 w-8 rounded-full grad-brand grid place-items-center text-white text-xs font-extrabold">U</span>
+            <span id="userName" class="text-[.82rem] font-bold max-w-[120px] truncate">User</span>
+            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div id="userMenu" class="hidden absolute right-0 mt-2 w-60 rounded-2xl border border-slate-200 bg-white shadow-soft p-2">
+            <div class="px-3 py-2.5 border-b border-slate-100 mb-1">
+              <p id="menuName" class="text-sm font-bold truncate">User</p>
+              <p id="menuEmail" class="text-xs text-slate-500 truncate">user@email.com</p>
+              <span id="menuRole" class="chip bg-brand-50 text-brand-700 mt-2">Parent / Guardian</span>
+            </div>
+            <button onclick="userAction('dashboard')" id="menuDashboard" class="hidden w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-50">School dashboard</button>
+            <button onclick="userAction('purchases')" id="menuPurchases" class="hidden w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-50">My purchases</button>
+            <button onclick="userAction('register')" id="menuRegister" class="hidden w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-50">Register a school</button>
+            <button onclick="userAction('home')" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-50">Browse schools</button>
+            <button onclick="signOut()" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold text-rose-600 hover:bg-rose-50">Sign out</button>
+          </div>
+        </div>
+
+        <button onclick="toggleDrawer()" class="lg:hidden h-10 w-10 grid place-items-center rounded-xl border border-slate-200 bg-white">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div id="mobileDrawer" class="lg:hidden hidden border-t border-slate-200/70 bg-white/95 backdrop-blur px-4 py-3">
+    <div class="flex flex-col gap-1 text-sm font-semibold text-slate-700">
+      <a href="#features" onclick="toggleDrawer()" class="px-3 py-3 rounded-xl hover:bg-slate-50">Features</a>
+      <a href="#how" onclick="toggleDrawer()" class="px-3 py-3 rounded-xl hover:bg-slate-50">How it works</a>
+      <a href="#schools" onclick="toggleDrawer()" class="px-3 py-3 rounded-xl hover:bg-slate-50">Find a school</a>
+      <a href="#pricing" onclick="toggleDrawer()" class="px-3 py-3 rounded-xl hover:bg-slate-50">Pricing</a>
+      <a href="#faq" onclick="toggleDrawer()" class="px-3 py-3 rounded-xl hover:bg-slate-50">FAQ</a>
+      <div class="h-px bg-slate-100 my-2"></div>
+      <button onclick="toggleDrawer();openAuth('google')" class="btn w-full py-3 bg-ink text-white">Continue with Google</button>
+      <button onclick="toggleDrawer();openAuth('phone')" class="btn w-full py-3 border border-slate-200 bg-white text-slate-700">Sign in with phone</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- ======================= HOME VIEW ======================= -->
+<div id="view-home">
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden grid-bg">
+    <div class="absolute inset-0 mesh pointer-events-none"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-20 lg:pt-20 lg:pb-28">
+      <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-14 items-center">
+        <div>
+          <span class="reveal inline-flex items-center gap-2 chip bg-white border border-brand-100 text-brand-700 shadow-sm px-3 py-1.5">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            Trusted by 1,240+ schools across East Africa
+          </span>
+          <h1 class="reveal mt-5 text-[2.3rem] leading-[1.08] sm:text-5xl lg:text-[3.6rem] font-extrabold tracking-[-.03em]">
+            Sell <span class="grad-text">joining &amp; interview forms</span> online — get paid in minutes.
+          </h1>
+          <p class="reveal mt-5 text-[1.02rem] sm:text-lg text-slate-600 max-w-xl leading-relaxed">
+            EduForm gives every school a verified digital storefront. Register your leadership team, publish your
+            forms, and let parents pay with mobile money or card — instantly receiving joining instructions.
+          </p>
+
+          <div class="reveal mt-8 flex flex-wrap gap-3">
+            <button onclick="startSchoolRegistration()" class="btn px-6 py-3.5 grad-brand text-white shadow-glow hover:shadow-[0_28px_70px_-24px_rgba(79,70,229,.75)]">
+              Register your school
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <a href="#schools" class="btn px-6 py-3.5 bg-white border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-700 shadow-soft">
+              Buy a form for my child
+            </a>
+          </div>
+
+          <div class="reveal mt-9 grid grid-cols-3 gap-4 max-w-lg">
+            <div>
+              <p class="text-2xl font-extrabold tracking-tight">480k+</p>
+              <p class="text-xs text-slate-500 font-semibold mt-0.5">Forms delivered</p>
+            </div>
+            <div class="border-l border-slate-200 pl-4">
+              <p class="text-2xl font-extrabold tracking-tight">2 min</p>
+              <p class="text-xs text-slate-500 font-semibold mt-0.5">Average checkout</p>
+            </div>
+            <div class="border-l border-slate-200 pl-4">
+              <p class="text-2xl font-extrabold tracking-tight">99.9%</p>
+              <p class="text-xs text-slate-500 font-semibold mt-0.5">Platform uptime</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero visual -->
+        <div class="relative">
+          <div class="absolute -top-8 -left-6 h-24 w-24 rounded-3xl grad-brand opacity-20 blur-2xl"></div>
+          <div class="floaty relative rounded-4xl border border-white/70 bg-white shadow-[0_40px_90px_-40px_rgba(30,27,75,.5)] p-5 sm:p-6">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="h-9 w-9 rounded-xl grad-brand grid place-items-center text-white text-[.7rem] font-extrabold">SA</span>
+                <div>
+                  <p class="text-[.82rem] font-extrabold leading-tight">St. Andrew's High School</p>
+                  <p class="text-[.7rem] text-slate-500 font-semibold">Kampala · Verified school</p>
+                </div>
+              </div>
+              <span class="chip bg-emerald-50 text-emerald-700">Live</span>
+            </div>
+
+            <div class="mt-5 space-y-2.5">
+              <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50/70 px-3.5 py-3">
+                <div>
+                  <p class="text-[.8rem] font-bold">Joining Form — Senior 1</p>
+                  <p class="text-[.68rem] text-slate-500 font-semibold">Instant download · PDF</p>
+                </div>
+                <span class="text-[.82rem] font-extrabold text-brand-700">UGX 20,000</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50/70 px-3.5 py-3">
+                <div>
+                  <p class="text-[.8rem] font-bold">Interview Form — Senior 1</p>
+                  <p class="text-[.68rem] text-slate-500 font-semibold">Slot booking included</p>
+                </div>
+                <span class="text-[.82rem] font-extrabold text-brand-700">UGX 15,000</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50/70 px-3.5 py-3">
+                <div>
+                  <p class="text-[.8rem] font-bold">Joining Instructions Pack</p>
+                  <p class="text-[.68rem] text-slate-500 font-semibold">Requirements · Term dates</p>
+                </div>
+                <span class="text-[.82rem] font-extrabold text-brand-700">UGX 10,000</span>
+              </div>
+            </div>
+
+            <button onclick="startSchoolRegistration()" class="btn w-full mt-5 py-3.5 grad-brand text-white text-sm">Publish a form</button>
+          </div>
+
+          <div class="floaty-2 absolute -bottom-7 -left-3 sm:-left-10 w-[268px] rounded-3xl border border-white/70 bg-white shadow-[0_30px_70px_-30px_rgba(30,27,75,.45)] p-4">
+            <div class="flex items-start gap-3">
+              <span class="h-10 w-10 rounded-2xl bg-emerald-50 grid place-items-center shrink-0">
+                <svg viewBox="0 0 24 24" class="h-5 w-5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              <div>
+                <p class="text-[.82rem] font-extrabold">Payment received</p>
+                <p class="text-[.7rem] text-slate-500 font-semibold mt-0.5">Nakato A. · MTN MoMo</p>
+                <p class="text-[.7rem] text-slate-500 font-semibold">Child: Ethan Nakato · Senior 1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust marquee -->
+      <div class="reveal mt-20 overflow-hidden relative">
+        <p class="text-[.7rem] font-extrabold uppercase tracking-[.18em] text-slate-400 text-center mb-5">Powering admissions for</p>
+        <div class="marquee-track">
+          <div class="flex gap-14 items-center text-slate-400 font-extrabold text-[.95rem] whitespace-nowrap">
+            <span>St. Andrew's High School</span><span>Bright Future Primary</span><span>Kampala International Academy</span>
+            <span>Green Hills Secondary</span><span>Hilltop Junior School</span><span>Nairobi Girls' College</span>
+            <span>St. Andrew's High School</span><span>Bright Future Primary</span><span>Kampala International Academy</span>
+            <span>Green Hills Secondary</span><span>Hilltop Junior School</span><span>Nairobi Girls' College</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="py-20 sm:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-2xl">
+        <span class="chip bg-brand-50 text-brand-700">Platform capabilities</span>
+        <h2 class="reveal mt-4 text-3xl sm:text-4xl font-extrabold tracking-[-.025em] leading-tight">Everything a school needs to run admissions online.</h2>
+        <p class="reveal mt-4 text-slate-600 leading-relaxed">From leadership verification to automated receipts — one secure system that replaces queues, paper registers and manual bank slips.</p>
+      </div>
+
+      <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="reveal card-hover rounded-3xl border border-slate-200/80 bg-white p-6">
+          <span class="h-11 w-11 rounded-2xl bg-brand-50 grid place-items-center text-brand-700">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          </span>
+          <h3 class="mt-4 font-extrabold text-[1.02rem]">Instant form sales</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">Publish joining forms, interview forms and joining instructions. Parents pay and download immediately — no office visit required.</p>
+        </div>
+
+        <div class="reveal card-hover rounded-3xl border border-slate-200/80 bg-white p-6">
+          <span class="h-11 w-11 rounded-2xl bg-violet-50 grid place-items-center text-violet-700">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+          <h3 class="mt-4 font-extrabold text-[1.02rem]">Verified leadership roles</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">Register the Head Teacher, Deputy, School Manager and Academic Master/Mistress with names, phone numbers and emails.</p>
+        </div>
+
+        <div class="reveal card-hover rounded-3xl border border-slate-200/80 bg-white p-6">
+          <span class="h-11 w-11 rounded-2xl bg-emerald-50 grid place-items-center text-emerald-700">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+          </span>
+          <h3 class="mt-4 font-extrabold text-[1.02rem]">Google &amp; phone sign-in</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">Guardians authenticate with a Google account or a verified phone number and one-time code. No passwords to remember.</p>
+        </div>
+
+        <div class="reveal card-hover rounded-3xl border border-slate-200/80 bg-white p-6">
+          <span class="h-11 w-11 rounded-2xl bg-amber-50 grid place-items-center text-amber-600">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </span>
+          <h3 class="mt-4 font-extrabold text-[1.02rem]">Child-linked purchases</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">Guardians purchasing for a child enter the child's full name and class — the school receives a clean, class-organised list.</p>
+        </div>
+
+        <div class="reveal card-hover rounded-3xl border border-slate-200/80 bg-white p-6">
+          <span class="h-11 w-11 rounded-2xl bg-sky-50 grid place-items-center text-sky-700">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
+          </span>
+          <h3 class="mt-4 font-extrabold text-[1.02rem]">Mobile money &amp; card</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">MTN MoMo, Airtel Money, Visa and Mastercard. Funds settle to the school wallet with automatic receipts for every order.</p>
+        </div>
+
+        <div class="reveal card-hover rounded-3xl border border-slate-200/80 bg-white p-6">
+          <span class="h-11 w-11 rounded-2xl bg-rose-50 grid place-items-center text-rose-600">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          </span>
+          <h3 class="mt-4 font-extrabold text-[1.02rem]">Live analytics &amp; payouts</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">Track sales by form, class and date. Export applicant lists as CSV and request withdrawals to your school bank account.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="py-20 sm:py-24 bg-slate-50/80 border-y border-slate-200/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto">
+        <span class="chip bg-white border border-slate-200 text-slate-600">Simple by design</span>
+        <h2 class="reveal mt-4 text-3xl sm:text-4xl font-extrabold tracking-[-.025em]">Two journeys. One platform.</h2>
+        <p class="reveal mt-3 text-slate-600">Whether you are the school administrator or a parent buying for a child, onboarding takes under five minutes.</p>
+      </div>
+
+      <div class="mt-14 grid lg:grid-cols-2 gap-6">
+        <!-- Schools -->
+        <div class="reveal rounded-4xl grad-dark text-white p-7 sm:p-9 relative overflow-hidden">
+          <div class="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-500/25 blur-3xl"></div>
+          <div class="relative">
+            <div class="flex items-center gap-3">
+              <span class="h-11 w-11 rounded-2xl bg-white/10 grid place-items-center border border-white/15">
+                <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg>
+              </span>
+              <h3 class="text-xl font-extrabold">For schools</h3>
+            </div>
+            <ol class="mt-7 space-y-5">
+              <li class="flex gap-4">
+                <span class="h-8 w-8 shrink-0 rounded-xl bg-white/10 border border-white/15 grid place-items-center text-[.78rem] font-extrabold">1</span>
+                <div>
+                  <p class="font-bold">Create your school profile</p>
+                  <p class="text-sm text-white/65 mt-1">Add the school name, level, location, official email and phone number.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="h-8 w-8 shrink-0 rounded-xl bg-white/10 border border-white/15 grid place-items-center text-[.78rem] font-extrabold">2</span>
+                <div>
+                  <p class="font-bold">Register your leadership team</p>
+                  <p class="text-sm text-white/65 mt-1">Head Teacher, Deputy Head Teacher, School Manager and Academic Master/Mistress — each with name, phone and email.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="h-8 w-8 shrink-0 rounded-xl bg-white/10 border border-white/15 grid place-items-center text-[.78rem] font-extrabold">3</span>
+                <div>
+                  <p class="font-bold">Publish forms and prices</p>
+                  <p class="text-sm text-white/65 mt-1">Joining forms, interview forms and joining instructions — set your own fee per form.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="h-8 w-8 shrink-0 rounded-xl bg-white/10 border border-white/15 grid place-items-center text-[.78rem] font-extrabold">4</span>
+                <div>
+                  <p class="font-bold">Track orders &amp; withdraw</p>
+                  <p class="text-sm text-white/65 mt-1">Watch applications arrive in real time, verify payments and request payouts.</p>
+                </div>
+              </li>
+            </ol>
+            <button onclick="startSchoolRegistration()" class="btn w-full mt-8 py-3.5 bg-white text-ink hover:bg-slate-100">Register your school free</button>
+          </div>
+        </div>
+
+        <!-- Parents -->
+        <div class="reveal rounded-4xl bg-white border border-slate-200 p-7 sm:p-9">
+          <div class="flex items-center gap-3">
+            <span class="h-11 w-11 rounded-2xl grad-brand grid place-items-center text-white">
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+            </span>
+            <h3 class="text-xl font-extrabold">For parents &amp; guardians</h3>
+          </div>
+          <ol class="mt-7 space-y-5">
+            <li class="flex gap-4">
+              <span class="h-8 w-8 shrink-0 rounded-xl bg-brand-50 text-brand-700 grid place-items-center text-[.78rem] font-extrabold">1</span>
+              <div>
+                <p class="font-bold">Find your school</p>
+                <p class="text-sm text-slate-500 mt-1">Search by name, level or town and open the school's verified form catalogue.</p>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <span class="h-8 w-8 shrink-0 rounded-xl bg-brand-50 text-brand-700 grid place-items-center text-[.78rem] font-extrabold">2</span>
+              <div>
+                <p class="font-bold">Sign in with Google or phone</p>
+                <p class="text-sm text-slate-500 mt-1">One tap on Google, or a phone number verified with a 6-digit one-time code.</p>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <span class="h-8 w-8 shrink-0 rounded-xl bg-brand-50 text-brand-700 grid place-items-center text-[.78rem] font-extrabold">3</span>
+              <div>
+                <p class="font-bold">Tell us about the child</p>
+                <p class="text-sm text-slate-500 mt-1">Enter the child's full name and the class they are applying for before paying.</p>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <span class="h-8 w-8 shrink-0 rounded-xl bg-brand-50 text-brand-700 grid place-items-center text-[.78rem] font-extrabold">4</span>
+              <div>
+                <p class="font-bold">Pay and download instantly</p>
+                <p class="text-sm text-slate-500 mt-1">Mobile money or card. The form and joining instructions unlock immediately in "My purchases".</p>
+              </div>
+            </li>
+          </ol>
+          <a href="#schools" class="btn w-full mt-8 py-3.5 border border-slate-200 hover:border-brand-300 hover:text-brand-700">Browse schools</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETPLACE -->
+  <section id="schools" class="py-20 sm:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div class="max-w-xl">
+          <span class="chip bg-brand-50 text-brand-700">School directory</span>
+          <h2 class="reveal mt-4 text-3xl sm:text-4xl font-extrabold tracking-[-.025em]">Buy a form from any registered school.</h2>
+          <p class="reveal mt-3 text-slate-600">Verified institutions on EduForm. Prices are set by each school.</p>
+        </div>
+        <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-3">
+          <div class="relative">
+            <svg viewBox="0 0 24 24" class="h-4 w-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="schoolSearch" oninput="renderSchools()" placeholder="Search school or city…" class="field pl-10 sm:w-72">
+          </div>
+          <select id="schoolLevel" onchange="renderSchools()" class="field sm:w-44">
+            <option value="">All levels</option>
+            <option>Primary</option>
+            <option>Secondary</option>
+            <option>Combined</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="schoolGrid" class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+      <p id="schoolEmpty" class="hidden mt-12 text-center text-slate-500 text-sm font-semibold">No schools match your search. Try a different keyword.</p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="py-20 sm:py-24 bg-slate-50/80 border-y border-slate-200/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto">
+        <span class="chip bg-white border border-slate-200 text-slate-600">Transparent pricing</span>
+        <h2 class="reveal mt-4 text-3xl sm:text-4xl font-extrabold tracking-[-.025em]">Free to register. Pay only when you sell.</h2>
+        <p class="reveal mt-3 text-slate-600">No setup fees, no monthly subscriptions on the starter plan. Registration always costs nothing.</p>
+      </div>
+
+      <div class="mt-14 grid lg:grid-cols-3 gap-5 items-start">
+        <div class="reveal rounded-3xl bg-white border border-slate-200 p-7">
+          <p class="font-extrabold text-lg">Starter</p>
+          <p class="text-sm text-slate-500 mt-1">For newly registered schools</p>
+          <p class="mt-6 text-4xl font-extrabold tracking-tight">Free</p>
+          <p class="text-xs text-slate-500 font-semibold mt-1">5% per successful sale</p>
+          <ul class="mt-6 space-y-3 text-sm text-slate-600">
+            <li class="flex gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Unlimited form listings</li>
+            <li class="flex gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Up to 4 leadership roles</li>
+            <li class="flex gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Mobile money &amp; card checkout</li>
+            <li class="flex gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Instant applicant notifications</li>
+          </ul>
+          <button onclick="startSchoolRegistration()" class="btn w-full mt-7 py-3 border border-slate-200 hover:border-brand-300 hover:text-brand-700">Get started</button>
+        </div>
+
+        <div class="reveal rounded-3xl grad-brand text-white p-7 shadow-glow lg:-mt-4 lg:mb-4 relative overflow-hidden">
+          <div class="absolute -right-14 -top-14 h-48 w-48 rounded-full bg-white/15 blur-2xl"></div>
+          <div class="relative">
+            <div class="flex items-center justify-between">
+              <p class="font-extrabold text-lg">Growth</p>
+              <span class="chip bg-white/20 text-white">Most popular</span>
+            </div>
+            <p class="text-sm text-white/70 mt-1">For schools with steady intakes</p>
+            <p class="mt-6 text-4xl font-extrabold tracking-tight">3%</p>
+            <p class="text-xs text-white/70 font-semibold mt-1">per successful sale · no monthly fee</p>
+            <ul class="mt-6 space-y-3 text-sm text-white/90">
+              <li class="flex gap-2.5"><span class="font-bold">✓</span> Everything in Starter</li>
+              <li class="flex gap-2.5"><span class="font-bold">✓</span> Unlimited leadership roles &amp; staff</li>
+              <li class="flex gap-2.5"><span class="font-bold">✓</span> CSV applicant exports</li>
+              <li class="flex gap-2.5"><span class="font-bold">✓</span> Interview slot scheduling</li>
+              <li class="flex gap-2.5"><span class="font-bold">✓</span> Weekly automatic payouts</li>
+            </ul>
+            <button onclick="startSchoolRegistration()" class="btn w-full mt-7 py-3 bg-white text-ink hover:bg-slate-100">Choose Growth</button>
+          </div>
+        </div>
+
+        <div class="reveal rounded-3xl bg-white border border-slate-200 p-7">
+          <p class="font-extrabold text-lg">District</p>
+          <p class="text-sm text-slate-500 mt-1">For groups &amp; education offices</p>
+          <p class="mt-6 text-4xl font-extrabold tracking-tight">Custom</p>
+          <p class="text-xs text-slate-500 font-semibold mt-1">Volume-based settlement</p>
+          <ul class="mt-6 space-y-3 text-sm text-slate-600">
+            <li class="flex gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Multi-school console</li>
+            <li class="flex gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Consolidated reporting</li>
+            <li class="flex gap-2.5"><span class="text-emerald-600 font-bold">✓</span> Dedicated success manager</li>
+            <li class="flex gap-2.5"><span class="text-emerald-600 font-bold">✓</span> API access &amp; SSO</li>
+          </ul>
+          <button onclick="toast('Our partnerships team will reach out shortly.','info')" class="btn w-full mt-7 py-3 border border-slate-200 hover:border-brand-300 hover:text-brand-700">Talk to sales</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20 sm:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-2xl">
+        <span class="chip bg-brand-50 text-brand-700">Testimonials</span>
+        <h2 class="reveal mt-4 text-3xl sm:text-4xl font-extrabold tracking-[-.025em]">Schools that stopped queuing.</h2>
+      </div>
+      <div class="mt-12 grid md:grid-cols-3 gap-5">
+        <div class="reveal card-hover rounded-3xl border border-slate-200/80 bg-slate-50/60 p-6">
+          <div class="flex gap-0.5 text-accent-500">★★★★★</div>
+          <p class="mt-4 text-[.95rem] text-slate-700 leading-relaxed">"We used to sell joining forms at the gate for two weeks straight. Now 78% of our Senior 1 intake pays online before term even opens."</p>
+          <div class="mt-5 flex items-center gap-3">
+            <span class="h-10 w-10 rounded-full grad-brand grid place-items-center text-white text-xs font-extrabold">DO</span>
+            <div>
+              <p class="text-sm font-extrabold">Mr. Daniel Okello</p>
+              <p class="text-xs text-slate-500 font-semibold">Head Teacher · St. Andrew's High School</p>
+            </div>
+          </div>
+        </div>
+        <div class="reveal card-hover rounded-3xl border border-slate-200/80 bg-slate-50/60 p-6">
+          <div class="flex gap-0.5 text-accent-500">★★★★★</div>
+          <p class="mt-4 text-[.95rem] text-slate-700 leading-relaxed">"The leadership credentialing gave parents confidence. They can see exactly who the Head Mistress and Academic Master are before paying."</p>
+          <div class="mt-5 flex items-center gap-3">
+            <span class="h-10 w-10 rounded-full bg-violet-600 grid place-items-center text-white text-xs font-extrabold">GW</span>
+            <div>
+              <p class="text-sm font-extrabold">Mrs. Grace Wanjiru</p>
+              <p class="text-xs text-slate-500 font-semibold">Head Mistress · Bright Future Primary</p>
+            </div>
+          </div>
+        </div>
+        <div class="reveal card-hover rounded-3xl border border-slate-200/80 bg-slate-50/60 p-6">
+          <div class="flex gap-0.5 text-accent-500">★★★★★</div>
+          <p class="mt-4 text-[.95rem] text-slate-700 leading-relaxed">"As a guardian I bought the interview form at 11pm from my phone. Paid with MoMo, got the PDF instantly — no travelling to the school."</p>
+          <div class="mt-5 flex items-center gap-3">
+            <span class="h-10 w-10 rounded-full bg-emerald-600 grid place-items-center text-white text-xs font-extrabold">AN</span>
+            <div>
+              <p class="text-sm font-extrabold">Ms. Alice Nakato</p>
+              <p class="text-xs text-slate-500 font-semibold">Parent · Kampala</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-20 sm:py-24 bg-slate-50/80 border-y border-slate-200/70">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="text-center">
+        <span class="chip bg-white border border-slate-200 text-slate-600">Answers</span>
+        <h2 class="reveal mt-4 text-3xl sm:text-4xl font-extrabold tracking-[-.025em]">Frequently asked questions</h2>
+      </div>
+
+      <div class="mt-12 space-y-3" id="faqList">
+        <div class="reveal rounded-2xl bg-white border border-slate-200 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-[.95rem]">
+            How much does it cost for a school to register?
+            <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0 text-slate-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="acc-body"><p class="px-5 pb-5 text-sm text-slate-600 leading-relaxed">Registration is completely free. EduForm only earns a small commission on successful form sales — 5% on the Starter plan and 3% on Growth. There are no setup charges, subscriptions or hidden fees.</p></div>
+        </div>
+        <div class="reveal rounded-2xl bg-white border border-slate-200 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-[.95rem]">
+            Which leadership credentials must a school provide?
+            <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0 text-slate-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="acc-body"><p class="px-5 pb-5 text-sm text-slate-600 leading-relaxed">At minimum the Head Teacher or Head Mistress (full name, phone number and email). Schools are encouraged to also register the Deputy Head Teacher, the School Manager/Director and the Academic Master or Mistress so that buyers can verify the institution's leadership. All contacts are verified with a one-time code before the school goes live.</p></div>
+        </div>
+        <div class="reveal rounded-2xl bg-white border border-slate-200 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-[.95rem]">
+            Can a guardian buy a form on behalf of a child?
+            <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0 text-slate-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="acc-body"><p class="px-5 pb-5 text-sm text-slate-600 leading-relaxed">Yes — and it is the most common case. During checkout the guardian must enter the child's full name, the class the child is applying for, and their own relationship to the child (Parent, Guardian, Sponsor). The school's applicant list is then grouped by child name and class.</p></div>
+        </div>
+        <div class="reveal rounded-2xl bg-white border border-slate-200 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-[.95rem]">
+            How do buyers sign in?
+            <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0 text-slate-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="acc-body"><p class="px-5 pb-5 text-sm text-slate-600 leading-relaxed">Buyers can authenticate with a Google account in one tap, or with a phone number that receives a 6-digit verification code over SMS. Both methods create a secure profile that stores every purchase for later download.</p></div>
+        </div>
+        <div class="reveal rounded-2xl bg-white border border-slate-200 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-[.95rem]">
+            When do schools receive their money?
+            <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0 text-slate-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="acc-body"><p class="px-5 pb-5 text-sm text-slate-600 leading-relaxed">Sales are credited to the school wallet instantly and settle to the school's registered bank or mobile money account on a weekly cycle, or on demand from the Payouts tab once the balance exceeds the minimum threshold.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 sm:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="reveal rounded-4xl grad-dark text-white p-9 sm:p-14 relative overflow-hidden">
+        <div class="absolute inset-0 mesh opacity-60"></div>
+        <div class="relative grid lg:grid-cols-[1.2fr_.8fr] gap-10 items-center">
+          <div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-[-.025em] leading-tight">Ready to move your admissions online?</h2>
+            <p class="mt-4 text-white/70 max-w-xl leading-relaxed">Register your school in under five minutes, publish your joining and interview forms, and start collecting applications today.</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <button onclick="startSchoolRegistration()" class="btn px-6 py-3.5 bg-white text-ink hover:bg-slate-100">Register your school</button>
+              <button onclick="openAuth('google')" class="btn px-6 py-3.5 border border-white/25 text-white hover:bg-white/10">Continue with Google</button>
+            </div>
+          </div>
+          <div class="rounded-3xl bg-white/10 border border-white/15 p-6 backdrop-blur">
+            <p class="text-xs font-extrabold uppercase tracking-[.16em] text-white/60">Launch checklist</p>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li class="flex gap-3"><span class="h-5 w-5 rounded-full bg-emerald-500/90 grid place-items-center text-[.6rem] font-extrabold">✓</span> School profile &amp; contacts</li>
+              <li class="flex gap-3"><span class="h-5 w-5 rounded-full bg-emerald-500/90 grid place-items-center text-[.6rem] font-extrabold">✓</span> Head Teacher credentials verified</li>
+              <li class="flex gap-3"><span class="h-5 w-5 rounded-full bg-emerald-500/90 grid place-items-center text-[.6rem] font-extrabold">✓</span> Forms &amp; prices published</li>
+              <li class="flex gap-3"><span class="h-5 w-5 rounded-full bg-white/20 grid place-items-center text-[.6rem] font-extrabold">→</span> First sale</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= REGISTER VIEW ======================= -->
+<section id="view-register" class="hidden">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <button onclick="goHome()" class="text-sm font-bold text-slate-500 hover:text-brand-700 flex items-center gap-2 mb-6">
+      <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to home
+    </button>
+
+    <div class="flex items-start justify-between gap-6 flex-wrap">
+      <div>
+        <span class="chip bg-brand-50 text-brand-700">School onboarding</span>
+        <h1 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-[-.025em]">Register your school</h1>
+        <p class="mt-2 text-slate-600 max-w-xl">Complete the four steps below. Your account goes live as soon as the Head Teacher's phone number is verified.</p>
+      </div>
+      <span class="chip bg-emerald-50 text-emerald-700">Free · No setup fee</span>
+    </div>
+
+    <!-- Stepper -->
+    <div class="mt-10 rounded-3xl bg-white border border-slate-200 p-5 sm:p-6">
+      <div class="flex items-center justify-between gap-1">
+        <div class="flex-1 flex items-center gap-3" data-stepper="1">
+          <span class="step-dot h-9 w-9 rounded-full bg-brand-600 text-white grid place-items-center text-xs font-extrabold">1</span>
+          <div class="hidden sm:block"><p class="text-[.8rem] font-extrabold">School profile</p></div>
+        </div>
+        <div class="h-1 flex-1 bg-slate-100 rounded-full mx-2" data-progress="1"></div>
+        <div class="flex-1 flex items-center gap-3" data-stepper="2">
+          <span class="step-dot h-9 w-9 rounded-full bg-slate-100 text-slate-400 grid place-items-center text-xs font-extrabold">2</span>
+          <div class="hidden sm:block"><p class="text-[.8rem] font-extrabold text-slate-400">Leadership team</p></div>
+        </div>
+        <div class="h-1 flex-1 bg-slate-100 rounded-full mx-2" data-progress="2"></div>
+        <div class="flex-1 flex items-center gap-3" data-stepper="3">
+          <span class="step-dot h-9 w-9 rounded-full bg-slate-100 text-slate-400 grid place-items-center text-xs font-extrabold">3</span>
+          <div class="hidden sm:block"><p class="text-[.8rem] font-extrabold text-slate-400">Forms &amp; prices</p></div>
+        </div>
+        <div class="h-1 flex-1 bg-slate-100 rounded-full mx-2" data-progress="3"></div>
+        <div class="flex-1 flex items-center gap-3" data-stepper="4">
+          <span class="step-dot h-9 w-9 rounded-full bg-slate-100 text-slate-400 grid place-items-center text-xs font-extrabold">4</span>
+          <div class="hidden sm:block"><p class="text-[.8rem] font-extrabold text-slate-400">Verify &amp; launch</p></div>
+        </div>
+      </div>
+    </div>
+
+    <form id="wizardForm" onsubmit="event.preventDefault();" class="mt-6 space-y-6">
+
+      <!-- STEP 1 -->
+      <div data-step="1" class="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-xl font-extrabold">1. School profile</h2>
+        <p class="text-sm text-slate-500 mt-1">This information is shown publicly on your EduForm storefront.</p>
+        <div class="mt-6 grid sm:grid-cols-2 gap-5">
+          <div class="sm:col-span-2">
+            <label class="lbl">School name *</label>
+            <input id="rName" class="field" placeholder="e.g. St. Andrew's High School" required>
+          </div>
+          <div>
+            <label class="lbl">School level *</label>
+            <select id="rType" class="field">
+              <option>Primary</option>
+              <option selected>Secondary</option>
+              <option>Combined</option>
+            </select>
+          </div>
+          <div>
+            <label class="lbl">Country *</label>
+            <select id="rCountry" class="field" onchange="syncCurrency()">
+              <option value="Uganda" data-cur="UGX">Uganda</option>
+              <option value="Kenya" data-cur="KES">Kenya</option>
+              <option value="Rwanda" data-cur="RWF">Rwanda</option>
+              <option value="Tanzania" data-cur="TZS">Tanzania</option>
+            </select>
+          </div>
+          <div>
+            <label class="lbl">Town / City *</label>
+            <input id="rCity" class="field" placeholder="e.g. Kampala" required>
+          </div>
+          <div>
+            <label class="lbl">Motto <span class="text-slate-400 font-medium">(optional)</span></label>
+            <input id="rMotto" class="field" placeholder="e.g. Knowledge with Character">
+          </div>
+          <div>
+            <label class="lbl">Official school email *</label>
+            <input id="rEmail" type="email" class="field" placeholder="info@yourschool.ac.ug" required>
+          </div>
+          <div>
+            <label class="lbl">Official phone number *</label>
+            <input id="rPhone" class="field" placeholder="+256 700 000 000" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div data-step="2" class="hidden rounded-3xl bg-white border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-xl font-extrabold">2. Leadership team credentials</h2>
+        <p class="text-sm text-slate-500 mt-1">The Head Teacher / Head Mistress is mandatory. Adding the rest improves parent trust and verification.</p>
+        <div id="teamRows" class="mt-6 space-y-5"></div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div data-step="3" class="hidden rounded-3xl bg-white border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-xl font-extrabold">3. Forms &amp; prices</h2>
+        <p class="text-sm text-slate-500 mt-1">Set what your school sells. Buyers pay this price and download the form instantly.</p>
+        <div id="formRows" class="mt-6 space-y-4"></div>
+        <button type="button" onclick="addFormRow()" class="btn mt-4 px-4 py-2.5 border border-dashed border-slate-300 text-slate-600 hover:border-brand-400 hover:text-brand-700 text-sm">
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Add another form
+        </button>
+      </div>
+
+      <!-- STEP 4 -->
+      <div data-step="4" class="hidden rounded-3xl bg-white border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-xl font-extrabold">4. Verify &amp; launch</h2>
+        <p class="text-sm text-slate-500 mt-1">We will send a 6-digit verification code to the Head Teacher's phone number.</p>
+        <div id="reviewBox" class="mt-6 space-y-4"></div>
+        <label class="flex items-start gap-3 mt-6 text-sm text-slate-600">
+          <input id="rTerms" type="checkbox" class="mt-1 h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500">
+          <span>I confirm that I am authorised to register this school and that the leadership credentials provided are accurate. I agree to the EduForm Terms of Service and Payout Policy.</span>
+        </label>
+      </div>
+
+      <div class="flex items-center justify-between gap-3">
+        <button type="button" id="wizBack" onclick="wizPrev()" class="btn px-5 py-3 border border-slate-200 bg-white text-slate-600 invisible">Back</button>
+        <button type="button" id="wizNext" onclick="wizNext()" class="btn px-6 py-3 grad-brand text-white shadow-glow">Continue</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ======================= DASHBOARD VIEW ======================= -->
+<section id="view-dashboard" class="hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <div id="dashHeader" class="rounded-3xl grad-dark text-white p-6 sm:p-8 relative overflow-hidden">
+      <div class="absolute inset-0 mesh opacity-50"></div>
+      <div class="relative flex flex-wrap items-center justify-between gap-5">
+        <div class="flex items-center gap-4">
+          <span id="dashInitials" class="h-14 w-14 rounded-2xl bg-white/12 border border-white/15 grid place-items-center font-extrabold">SA</span>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 id="dashSchoolName" class="text-xl sm:text-2xl font-extrabold">School</h1>
+              <span class="chip bg-emerald-400/20 text-emerald-200">Verified</span>
+            </div>
+            <p id="dashSchoolMeta" class="text-sm text-white/60 mt-0.5">—</p>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="openSchoolModal(currentSchoolId())" class="btn px-4 py-2.5 bg-white/10 border border-white/20 text-white text-sm hover:bg-white/20">View public page</button>
+          <button onclick="toast('Share link copied to clipboard','success')" class="btn px-4 py-2.5 bg-white text-ink text-sm">Share storefront</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="mt-6 border-b border-slate-200 flex gap-1 overflow-x-auto no-scrollbar">
+      <button data-dtab="overview" onclick="setDashTab('overview')" class="tab-btn active px-4 py-3 text-sm font-bold text-slate-500 whitespace-nowrap">Overview</button>
+      <button data-dtab="forms" onclick="setDashTab('forms')" class="tab-btn px-4 py-3 text-sm font-bold text-slate-500 whitespace-nowrap">Forms &amp; pricing</button>
+      <button data-dtab="orders" onclick="setDashTab('orders')" class="tab-btn px-4 py-3 text-sm font-bold text-slate-500 whitespace-nowrap">Orders</button>
+      <button data-dtab="team" onclick="setDashTab('team')" class="tab-btn px-4 py-3 text-sm font-bold text-slate-500 whitespace-nowrap">Leadership</button>
+      <button data-dtab="payouts" onclick="setDashTab('payouts')" class="tab-btn px-4 py-3 text-sm font-bold text-slate-500 whitespace-nowrap">Payouts</button>
+    </div>
+
+    <div id="dashBody" class="mt-6"></div>
+  </div>
+</section>
+
+<!-- ======================= PURCHASES VIEW ======================= -->
+<section id="view-purchases" class="hidden">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <button onclick="goHome()" class="text-sm font-bold text-slate-500 hover:text-brand-700 flex items-center gap-2 mb-6">
+      <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Browse schools
+    </button>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <span class="chip bg-brand-50 text-brand-700">My purchases</span>
+        <h1 class="mt-3 text-3xl font-extrabold tracking-[-.025em]">Forms &amp; joining instructions</h1>
+        <p class="text-slate-600 mt-2 text-sm">Every form you have purchased for your child. Download or re-download at any time.</p>
+      </div>
+      <a href="#schools" onclick="goHome()" class="btn px-5 py-3 grad-brand text-white text-sm">Buy another form</a>
+    </div>
+    <div id="purchasesList" class="mt-8 space-y-4"></div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="grad-dark text-white/70 mt-0">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+    <div class="grid md:grid-cols-4 gap-10">
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-2.5">
+          <span class="h-9 w-9 rounded-xl grad-brand grid place-items-center">
+            <svg viewBox="0 0 24 24" class="h-5 w-5 text-white" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+          </span>
+          <span class="font-extrabold text-white text-[1.05rem]">EduForm<span class="text-brand-400">.</span></span>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed">The digital admissions platform for schools. Sell joining forms, interview forms and joining instructions online.</p>
+      </div>
+      <div>
+        <p class="text-white font-extrabold text-sm mb-4">For schools</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="#" onclick="startSchoolRegistration();return false;" class="hover:text-white">Register a school</a></li>
+          <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
+          <li><a href="#how" class="hover:text-white">How it works</a></li>
+          <li><a href="#" onclick="openAuth('phone');return false;" class="hover:text-white">School sign in</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-white font-extrabold text-sm mb-4">For parents</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="#schools" class="hover:text-white">Find a school</a></li>
+          <li><a href="#" onclick="openAuth('google');return false;" class="hover:text-white">Continue with Google</a></li>
+          <li><a href="#" onclick="userAction('purchases');return false;" class="hover:text-white">My purchases</a></li>
+          <li><a href="#faq" class="hover:text-white">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-white font-extrabold text-sm mb-4">Support</p>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="#" class="hover:text-white">help@eduform.app</a></li>
+          <li><a href="#" class="hover:text-white">+256 800 100 200</a></li>
+          <li><a href="#" class="hover:text-white">WhatsApp support</a></li>
+          <li><a href="#" class="hover:text-white">System status</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-12 pt-7 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <p>© <span id="year"></span> EduForm Technologies. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+        <a href="#" class="hover:text-white">Payout policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ AUTH MODAL ============ -->
+<div id="authModal" class="modal">
+  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeModal('authModal')"></div>
+  <div class="modal-panel relative w-full max-w-md rounded-3xl bg-white shadow-2xl overflow-hidden">
+    <button onclick="closeModal('authModal')" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl text-slate-400 hover:bg-slate-100 z-10">
+      <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="px-7 pt-7 pb-5">
+      <h3 class="text-xl font-extrabold">Welcome to EduForm</h3>
+      <p class="text-sm text-slate-500 mt-1">Sign in to buy forms or manage your school.</p>
+    </div>
+    <div class="px-7 flex gap-1 border-b border-slate-100">
+      <button id="authTabGoogle" onclick="setAuthTab('google')" class="tab-btn active px-4 pb-3 text-sm font-bold text-slate-500">Google account</button>
+      <button id="authTabPhone" onclick="setAuthTab('phone')" class="tab-btn px-4 pb-3 text-sm font-bold text-slate-500">Phone number</button>
+    </div>
+
+    <!-- Google pane -->
+    <div id="authPaneGoogle" class="px-7 py-6">
+      <button onclick="googleSignIn()" class="btn w-full py-3.5 border border-slate-200 bg-white hover:shadow-soft">
+        <svg viewBox="0 0 24 24" class="h-5 w-5"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.65l-3.57-2.77c-.99.66-2.26 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.84 14.11a6.6 6.6 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84Z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.05l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38Z"/></svg>
+        Choose a Google account
+      </button>
+      <p class="text-[.7rem] text-slate-400 mt-3 text-center leading-relaxed">We only read your name, email address and profile picture.</p>
+
+      <div class="mt-6 rounded-2xl bg-slate-50 border border-slate-100 p-4">
+        <p class="text-[.72rem] font-extrabold uppercase tracking-[.14em] text-slate-400">Demo accounts</p>
+        <div class="mt-3 space-y-2">
+          <button onclick="demoLogin('parent')" class="w-full flex items-center justify-between rounded-xl bg-white border border-slate-200 px-3.5 py-2.5 hover:border-brand-300 text-left">
+            <span><span class="block text-[.82rem] font-bold">Demo parent</span><span class="block text-[.7rem] text-slate-500">alice.nakato@gmail.com</span></span>
+            <span class="chip bg-brand-50 text-brand-700">Open</span>
+          </button>
+          <button onclick="demoLogin('school')" class="w-full flex items-center justify-between rounded-xl bg-white border border-slate-200 px-3.5 py-2.5 hover:border-brand-300 text-left">
+            <span><span class="block text-[.82rem] font-bold">Demo school</span><span class="block text-[.7rem] text-slate-500">St. Andrew's High School</span></span>
+            <span class="chip bg-emerald-50 text-emerald-700">Open</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone pane -->
+    <div id="authPanePhone" class="hidden px-7 py-6">
+      <div class="space-y-4">
+        <div>
+          <label class="lbl">Full name *</label>
+          <input id="authName" class="field" placeholder="e.g. Alice Nakato">
+        </div>
+        <div>
+          <label class="lbl">Phone number *</label>
+          <input id="authPhone" class="field" placeholder="+256 700 000 000">
+        </div>
+        <button onclick="phoneSignIn()" class="btn w-full py-3.5 grad-brand text-white shadow-glow">Send verification code</button>
+        <p class="text-[.7rem] text-slate-400 text-center leading-relaxed">Standard SMS rates may apply. By continuing you agree to our Terms.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ GOOGLE ACCOUNT CHOOSER ============ -->
+<div id="googleModal" class="modal">
+  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeModal('googleModal')"></div>
+  <div class="modal-panel relative w-full max-w-sm rounded-3xl bg-white shadow-2xl overflow-hidden">
+    <div class="px-6 pt-6 pb-4 border-b border-slate-100 flex items-center gap-3">
+      <svg viewBox="0 0 24 24" class="h-6 w-6"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.65l-3.57-2.77c-.99.66-2.26 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.84 14.11a6.6 6.6 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84Z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.05l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38Z"/></svg>
+      <div>
+        <p class="text-sm font-extrabold">Choose an account</p>
+        <p class="text-[.7rem] text-slate-500">to continue to EduForm</p>
+      </div>
+    </div>
+    <div class="p-3">
+      <button onclick="pickGoogle('Alice Nakato','alice.nakato@gmail.com')" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 text-left">
+        <span class="h-10 w-10 rounded-full bg-emerald-600 grid place-items-center text-white text-xs font-extrabold">AN</span>
+        <span><span class="block text-sm font-bold">Alice Nakato</span><span class="block text-[.72rem] text-slate-500">alice.nakato@gmail.com</span></span>
+      </button>
+      <button onclick="pickGoogle('Brian Ssekandi','brian.ssekandi@gmail.com')" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 text-left">
+        <span class="h-10 w-10 rounded-full bg-sky-600 grid place-items-center text-white text-xs font-extrabold">BS</span>
+        <span><span class="block text-sm font-bold">Brian Ssekandi</span><span class="block text-[.72rem] text-slate-500">brian.ssekandi@gmail.com</span></span>
+      </button>
+      <div class="h-px bg-slate-100 my-2"></div>
+      <button onclick="showCustomGoogle()" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 text-left">
+        <span class="h-10 w-10 rounded-full border border-slate-200 grid place-items-center text-slate-500">
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </span>
+        <span class="text-sm font-bold">Use another account</span>
+      </button>
+      <div id="customGoogle" class="hidden p-3 space-y-3">
+        <input id="gName" class="field" placeholder="Full name">
+        <input id="gEmail" class="field" placeholder="email@example.com">
+        <button onclick="submitCustomGoogle()" class="btn w-full py-3 grad-brand text-white text-sm">Continue</button>
+      </div>
+    </div>
+    <div class="px-6 py-4 bg-slate-50 text-[.68rem] text-slate-500 leading-relaxed">
+      To continue, Google will share your name, email address and profile picture with EduForm.
+    </div>
+  </div>
+</div>
+
+<!-- ============ OTP MODAL ============ -->
+<div id="otpModal" class="modal">
+  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeModal('otpModal')"></div>
+  <div class="modal-panel relative w-full max-w-sm rounded-3xl bg-white shadow-2xl p-7">
+    <span class="h-12 w-12 rounded-2xl bg-brand-50 grid place-items-center text-brand-700">
+      <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+    </span>
+    <h3 class="mt-4 text-xl font-extrabold">Enter verification code</h3>
+    <p class="text-sm text-slate-500 mt-1">We sent a 6-digit code to <span id="otpTarget" class="font-bold text-slate-700">your phone</span>.</p>
+    <div class="mt-6 flex gap-2 justify-between" id="otpInputs">
+      <input maxlength="1" inputmode="numeric" class="otp-box" oninput="otpNext(this,0)" onkeydown="otpBack(event,this,0)">
+      <input maxlength="1" inputmode="numeric" class="otp-box" oninput="otpNext(this,1)" onkeydown="otpBack(event,this,1)">
+      <input maxlength="1" inputmode="numeric" class="otp-box" oninput="otpNext(this,2)" onkeydown="otpBack(event,this,2)">
+      <input maxlength="1" inputmode="numeric" class="otp-box" oninput="otpNext(this,3)" onkeydown="otpBack(event,this,3)">
+      <input maxlength="1" inputmode="numeric" class="otp-box" oninput="otpNext(this,4)" onkeydown="otpBack(event,this,4)">
+      <input maxlength="1" inputmode="numeric" class="otp-box" oninput="otpNext(this,5)" onkeydown="otpBack(event,this,5)">
+    </div>
+    <p class="text-[.72rem] text-slate-400 mt-3">Demo tip: any 6 digits will verify.</p>
+    <button onclick="verifyOtp()" class="btn w-full mt-5 py-3.5 grad-brand text-white shadow-glow">Verify &amp; continue</button>
+    <button onclick="toast('A new code has been sent.','info')" class="btn w-full mt-2 py-2.5 text-sm text-slate-500 hover:bg-slate-50">Resend code</button>
+  </div>
+</div>
+
+<!-- ============ SCHOOL MODAL ============ -->
+<div id="schoolModal" class="modal">
+  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeModal('schoolModal')"></div>
+  <div class="modal-panel relative w-full max-w-2xl rounded-3xl bg-white shadow-2xl overflow-hidden">
+    <div id="schoolModalHead" class="grad-brand text-white p-7 relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 h-52 w-52 rounded-full bg-white/15 blur-2xl"></div>
+      <button onclick="closeModal('schoolModal')" class="absolute right-5 top-5 h-9 w-9 grid place-items-center rounded-xl bg-white/15 hover:bg-white/25 z-10">
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="relative flex items-center gap-4">
+        <span id="smInitials" class="h-14 w-14 rounded-2xl bg-white/20 border border-white/20 grid place-items-center font-extrabold">SA</span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 id="smName" class="text-xl font-extrabold">School</h3>
+            <span class="chip bg-white/20 text-white">
+              <svg viewBox="0 0 24 24" class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Verified
+            </span>
+          </div>
+          <p id="smMeta" class="text-sm text-white/70 mt-0.5">—</p>
+        </div>
+      </div>
+    </div>
+    <div id="schoolModalBody" class="p-6 sm:p-7 space-y-6 max-h-[60vh] overflow-y-auto"></div>
+  </div>
+</div>
+
+<!-- ============ CHECKOUT MODAL ============ -->
+<div id="checkoutModal" class="modal">
+  <div class="absolute inset-0 bg-ink/70 backdrop-blur-sm" onclick="closeModal('checkoutModal')"></div>
+  <div class="modal-panel relative w-full max-w-lg rounded-3xl bg-white shadow-2xl overflow-hidden">
+    <div class="px-6 sm:px-7 pt-6 pb-5 border-b border-slate-100 flex items-start justify-between gap-4">
+      <div>
+        <p class="text-[.68rem] font-extrabold uppercase tracking-[.16em] text-brand-600">Secure checkout</p>
+        <h3 id="coTitle" class="text-lg font-extrabold mt-1">Complete your purchase</h3>
+      </div>
+      <button onclick="closeModal('checkoutModal')" class="h-9 w-9 grid place-items-center rounded-xl text-slate-400 hover:bg-slate-100 shrink-0">
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="px-6 sm:px-7 py-5">
+      <div class="flex items-center gap-2 mb-5">
+        <span data-cstep="1" class="h-1.5 flex-1 rounded-full bg-brand-600"></span>
+        <span data-cstep="2" class="h-1.5 flex-1 rounded-full bg-slate-200"></span>
+        <span data-cstep="3" class="h-1.5 flex-1 rounded-full bg-slate-200"></span>
+      </div>
+      <div id="coBody" class="max-h-[62vh] overflow-y-auto pr-1"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOASTS ============ -->
+<div id="toastWrap" class="fixed bottom-5 right-5 z-[120] space-y-2.5 w-[min(360px,calc(100vw-2.5rem))]"></div>
+
+<script>
+/* =========================================================
+   EduForm — front-end "full stack" simulation
+   Data layer persists to localStorage
+   ========================================================= */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const KEY = 'eduform.db.v3';
+const SKEY = 'eduform.session.v3';
+
+const ROLES = [
+  { key:'head',     label:'Head Teacher / Head Mistress', required:true,  hint:'Primary account authority' },
+  { key:'deputy',   label:'Deputy Head Teacher',          required:false, hint:'Verified deputy' },
+  { key:'manager',  label:'School Manager / Director',    required:true,  hint:'Bursar or proprietor' },
+  { key:'academic', label:'Academic Master / Mistress',   required:false, hint:'Curriculum lead' }
+];
+
+/* ---------- Seed ---------- */
+function seedDB(){
+  const mkTeam = (a) => [
+    { role:'Head Teacher',              name:a[0], phone:a[1], email:a[2] },
+    { role:'Deputy Head Teacher',       name:a[3], phone:a[4], email:a[5] },
+    { role:'School Manager / Director', name:a[6], phone:a[7], email:a[8] },
+    { role:'Academic Master / Mistress',name:a[9], phone:a[10],email:a[11] }
+  ];
+
+  const schools = [
+    { id:'sch1', name:"St. Andrew's High School", type:'Secondary', city:'Kampala', country:'Uganda', currency:'UGX',
+      motto:'Knowledge with Character', rating:4.8, verified:true, initials:'SA',
+      contact:{ email:'info@standrews.ac.ug', phone:'+256 772 118 340' },
+      team: mkTeam(['Mr. Daniel Okello','+256 772 118 340','head@standrews.ac.ug',
+                    'Mrs. Sylvia Nabirye','+256 701 445 902','deputy@standrews.ac.ug',
+                    'Mr. Robert Katende','+256 782 330 118','manager@standrews.ac.ug',
+                    'Mr. Joseph Ssemakula','+256 703 992 774','academic@standrews.ac.ug']) },
+
+    { id:'sch2', name:'Bright Future Primary School', type:'Primary', city:'Nairobi', country:'Kenya', currency:'KES',
+      motto:'Every Child Shines', rating:4.7, verified:true, initials:'BF',
+      contact:{ email:'hello@brightfuture.ac.ke', phone:'+254 720 445 118' },
+      team: mkTeam(['Mrs. Grace Wanjiru','+254 720 445 118','head@brightfuture.ac.ke',
+                    'Mr. Peter Otieno','+254 733 902 774','deputy@brightfuture.ac.ke',
+                    'Mr. Samuel Kariuki','+254 711 330 226','manager@brightfuture.ac.ke',
+                    'Ms. Anne Mwangi','+254 722 118 903','academic@brightfuture.ac.ke']) },
+
+    { id:'sch3', name:'Kampala International Academy', type:'Combined', city:'Kampala', country:'Uganda', currency:'UGX',
+      motto:'Globally Minded, Locally Rooted', rating:4.9, verified:true, initials:'KI',
+      contact:{ email:'admissions@kia.ac.ug', phone:'+256 414 220 800' },
+      team: mkTeam(['Dr. Florence Achieng','+256 772 900 145','head@kia.ac.ug',
+                    'Mr. Ibrahim Ssali','+256 700 118 226','deputy@kia.ac.ug',
+                    'Mrs. Betty Namusoke','+256 782 445 331','manager@kia.ac.ug',
+                    'Mr. Charles Odongo','+256 705 220 118','academic@kia.ac.ug']) },
+
+    { id:'sch4', name:'Green Hills Secondary School', type:'Secondary', city:'Kigali', country:'Rwanda', currency:'RWF',
+      motto:'Discipline · Excellence', rating:4.6, verified:true, initials:'GH',
+      contact:{ email:'info@greenhills.rw', phone:'+250 788 331 220' },
+      team: mkTeam(['Mr. Eric Niyonzima','+250 788 331 220','head@greenhills.rw',
+                    'Mrs. Claudine Uwase','+250 787 445 118','deputy@greenhills.rw',
+                    'Mr. Patrick Habimana','+250 786 220 774','manager@greenhills.rw',
+                    'Ms. Diane Mukamana','+250 785 118 902','academic@greenhills.rw']) },
+
+    { id:'sch5', name:'Hilltop Junior School', type:'Primary', city:'Dar es Salaam', country:'Tanzania', currency:'TZS',
+      motto:'Learn · Grow · Lead', rating:4.5, verified:true, initials:'HJ',
+      contact:{ email:'office@hilltop.ac.tz', phone:'+255 754 118 220' },
+      team: mkTeam(['Mrs. Zawadi Mhando','+255 754 118 220','head@hilltop.ac.tz',
+                    'Mr. Juma Mkapa','+255 765 220 774','deputy@hilltop.ac.tz',
+                    'Mrs. Neema Kimaro','+255 713 445 118','manager@hilltop.ac.tz',
+                    'Mr. Baraka Mushi','+255 786 902 331','academic@hilltop.ac.tz']) }
+  ];
+
+  const forms = [
+    f('f1','sch1','Joining Form','Joining Form — Senior 1 Intake',20000,'Download PDF + submit online'),
+    f('f2','sch1','Interview Form','Interview Form — Senior 1',15000,'Includes interview slot booking'),
+    f('f3','sch1','Joining Instructions','Joining Instructions Pack — 2025',10000,'Requirements, fees & term dates'),
+    f('f4','sch2','Joining Form','Joining Form — Grade 1',500,'Download PDF'),
+    f('f5','sch2','Interview Form','Interview Form — Grade 1',400,'Parent & child interview'),
+    f('f6','sch2','Joining Instructions','Joining Instructions — Term 1',300,'Uniform & stationery list'),
+    f('f7','sch3','Joining Form','Joining Form — All Classes',35000,'Download PDF + admissions portal'),
+    f('f8','sch3','Interview Form','Interview Form — Kindergarten',25000,'Includes assessment day'),
+    f('f9','sch3','Joining Instructions','International Student Packet',18000,'Visa & boarding guidance'),
+    f('f10','sch4','Joining Form','Joining Form — Senior 1 (S1)',3000,'Download PDF'),
+    f('f11','sch4','Interview Form','Interview Form — S1 Boarding',2500,'Boarding interview'),
+    f('f12','sch5','Joining Form','Joining Form — Standard 1',5000,'Download PDF'),
+    f('f13','sch5','Joining Instructions','Joining Instructions — Term 1',4000,'Booklist & timetable')
+  ];
+
+  const names = ['Ethan Nakato','Maya Wanjiru','Liam Okello','Sara Uwase','Nathan Mushi','Zoe Achieng','Daniel Kato','Aisha Mhando'];
+  const orders = [];
+  const days = [0,1,2,3,4,5,6,7,9,11,13];
+  for(let i=0;i<10;i++){
+    const fm = forms[(i*3) % forms.length];
+    const sc = schools.find(s=>s.id===fm.schoolId);
+    const d = new Date(); d.setDate(d.getDate() - days[i % days.length]);
+    orders.push({
+      id:'o'+(i+1),
+      ref:'EDF-' + (482110 + i*37),
+      schoolId:fm.schoolId, formId:fm.id,
+      formTitle:fm.title, category:fm.category,
+      childName: names[i % names.length],
+      childClass: sc.type === 'Primary' ? 'Grade ' + ((i%6)+1) : 'Senior ' + ((i%4)+1),
+      guardianName: ['Alice Nakato','Brian Ssekandi','Grace Mwangi','Peter Otieno'][i%4],
+      guardianEmail: ['alice.nakato@gmail.com','brian.ssekandi@gmail.com','grace.mwangi@gmail.com','peter.otieno@gmail.com'][i%4],
+      guardianPhone: ['+256 700 118 226','+256 772 445 118','+254 720 118 903','+254 733 220 774'][i%4],
+      relation:'Parent',
+      amount: fm.price, currency: sc.currency,
+      method: ['MTN Mobile Money','Airtel Money','Visa Card','MTN Mobile Money'][i%4],
+      status: i % 5 === 0 ? 'Verified' : 'Paid',
+      date: d.toISOString()
+    });
+  }
+
+  return { schools, forms, orders, payouts:[] };
+
+  function f(id, schoolId, category, title, price, desc){
+    return { id, schoolId, category, title, price, desc, active:true };
+  }
+}
+
+let db = null;
+try { db = JSON.parse(localStorage.getItem(KEY)); } catch(e){ db = null; }
+if(!db || !db.schools) { db = seedDB(); localStorage.setItem(KEY, JSON.stringify(db)); }
+const saveDB = () => localStorage.setItem(KEY, JSON.stringify(db));
+
+let session = null;
+try { session = JSON.parse(sessionStorage.getItem(SKEY)); } catch(e){ session = null; }
+const saveSession = () => sessionStorage.setItem(SKEY, JSON.stringify(session));
+
+/* ---------- Helpers ---------- */
+const fmt = (n, cur) => (cur ? cur + ' ' : 'UGX ') + Number(n).toLocaleString();
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = (p) => p + Math.random().toString(36).slice(2,9);
+const schoolById = id => db.schools.find(s => s.id === id);
+const formById = id => db.forms.find(f => f.id === id);
+const formsBySchool = id => db.forms.filter(f => f.schoolId === id);
+const ordersBySchool = id => db.orders.filter(o => o.schoolId === id);
+const dt = iso => new Date(iso).toLocaleDateString(undefined,{ month:'short', day:'numeric', year:'numeric' });
+
+function toast(msg, type='success'){
+  const wrap = $('#toastWrap');
+  const el = document.createElement('div');
+  const colors = {
+    success:'bg-white border-emerald-200',
+    info:'bg-white border-brand-200',
+    error:'bg-white border-rose-200'
+  };
+  const icons = {
+    success:'<span class="h-7 w-7 rounded-full bg-emerald-50 grid place-items-center text-emerald-600"><svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>',
+    info:'<span class="h-7 w-7 rounded-full bg-brand-50 grid place-items-center text-brand-600"><svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 16v-4M12 8h.01"/></svg></span>',
+    error:'<span class="h-7 w-7 rounded-full bg-rose-50 grid place-items-center text-rose-600"><svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>'
+  };
+  el.className = 'slide-in rounded-2xl border shadow-soft ' + (colors[type]||colors.success) + ' p-3.5 flex items-start gap-3';
+  el.innerHTML = icons[type] + '<p class="text-[.84rem] font-semibold text-slate-700 leading-snug pt-0.5">' + esc(msg) + '</p>';
+  wrap.appendChild(el);
+  setTimeout(() => { el.style.transition='.4s'; el.style.opacity='0'; el.style.transform='translateX(24px)'; setTimeout(()=>el.remove(),420); }, 3600);
+}
+
+/* ---------- Modals ---------- */
+function openModal(id){ $('#'+id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id){ $('#'+id).classList.remove('open'); if(!$$('.modal.open').length) document.body.style.overflow=''; }
+
+/* ---------- Views ---------- */
+const VIEWS = ['view-home','view-register','view-dashboard','view-purchases'];
+function showView(id){
+  VIEWS.forEach(v => $('#'+v).classList.toggle('hidden', v !== id));
+  window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
+  if(id === 'view-dashboard') renderDashboard();
+  if(id === 'view-purchases') renderPurchases();
+}
+function goHome(){ showView('view-home'); setTimeout(observeReveals, 50); }
+
+/* ---------- Header / session ---------- */
+function updateHeader(){
+  const guest = $('#headerGuest'), user = $('#headerUser');
+  if(session){
+    guest.classList.add('hidden'); user.classList.remove('hidden');
+    guest.classList.add('sm:flex'); guest.classList.remove('hidden');
+    guest.classList.add('hidden');
+    user.classList.remove('hidden');
+    const initials = session.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+    $('#userAvatar').textContent = initials;
+    $('#userName').textContent = session.name.split(' ')[0];
+    $('#menuName').textContent = session.name;
+    $('#menuEmail').textContent = session.email || session.phone || '';
+    const roleChip = $('#menuRole');
+    if(session.role === 'school'){
+      roleChip.textContent = 'School administrator';
+      roleChip.className = 'chip bg-emerald-50 text-emerald-700 mt-2';
+      $('#menuDashboard').classList.remove('hidden');
+      $('#menuPurchases').classList.add('hidden');
+      $('#menuRegister').classList.add('hidden');
+    } else {
+      roleChip.textContent = 'Parent / Guardian';
+      roleChip.className = 'chip bg-brand-50 text-brand-700 mt-2';
+      $('#menuPurchases').classList.remove('hidden');
+      $('#menuDashboard').classList.add('hidden');
+      $('#menuRegister').classList.remove('hidden');
+    }
+  } else {
+    guest.classList.remove('hidden');
+    user.classList.add('hidden');
+  }
+}
+function toggleUserMenu(){ $('#userMenu').classList.toggle('hidden'); }
+document.addEventListener('click', (e)=>{
+  const m = $('#userMenu');
+  if(!m.classList.contains('hidden') && !e.target.closest('#headerUser')) m.classList.add('hidden');
+});
+function toggleDrawer(){ $('#mobileDrawer').classList.toggle('hidden'); }
+
+function setSession(data){
+  session = data;
+  saveSession();
+  updateHeader();
+}
+function signOut(){
+  session = null;
+  sessionStorage.removeItem(SKEY);
+  updateHeader();
+  $('#userMenu').classList.add('hidden');
+  toast('You have been signed out.','info');
+  goHome();
+}
+function userAction(what){
+  $('#userMenu').classList.add('hidden');
+  if(what === 'dashboard'){
+    if(session && session.role === 'school') showView('view-dashboard');
+    else { toast('Sign in with a school account.','error'); openAuth('phone'); }
+  }
+  if(what === 'purchases'){
+    if(session) showView('view-purchases');
+    else openAuth('google');
+  }
+  if(what === 'register') startSchoolRegistration();
+  if(what === 'home') goHome();
+}
+
+/* ---------- Auth ---------- */
+let authTab = 'google';
+function openAuth(tab){
+  authTab = tab || 'google';
+  setAuthTab(authTab);
+  openModal('authModal');
+}
+function setAuthTab(tab){
+  authTab = tab;
+  $('#authTabGoogle').classList.toggle('active', tab === 'google');
+  $('#authTabPhone').classList.toggle('active', tab === 'phone');
+  $('#authPaneGoogle').classList.toggle('hidden', tab !== 'google');
+  $('#authPanePhone').classList.toggle('hidden', tab !== 'phone');
+}
+function googleSignIn(){ closeModal('authModal'); openModal('googleModal'); }
+function showCustomGoogle(){ $('#customGoogle').classList.toggle('hidden'); }
+function submitCustomGoogle(){
+  const n = $('#gName').value.trim(), e = $('#gEmail').value.trim();
+  if(!n || !e || !e.includes('@')) return toast('Enter a valid name and email.','error');
+  pickGoogle(n, e);
+}
+function pickGoogle(name, email){
+  closeModal('googleModal');
+  setSession({ role:'guardian', name, email, phone:'', provider:'google' });
+  toast('Signed in as ' + name.split(' ')[0] + ' · ' + email, 'success');
+  if(pendingCourse){ const p = pendingCourse; pendingCourse = null; startCheckout(p); }
+}
+function phoneSignIn(){
+  const n = $('#authName').value.trim(), p = $('#authPhone').value.trim();
+  if(n.length < 3) return toast('Please enter your full name.','error');
+  if(p.length < 7) return toast('Please enter a valid phone number.','error');
+  closeModal('authModal');
+  openOtp(p, () => {
+    setSession({ role:'guardian', name:n, phone:p, email:'', provider:'phone' });
+    toast('Phone number verified. Welcome, ' + n.split(' ')[0] + '!', 'success');
+    if(pendingCourse){ const c = pendingCourse; pendingCourse = null; startCheckout(c); }
+  });
+}
+function demoLogin(kind){
+  closeModal('authModal');
+  if(kind === 'parent'){
+    setSession({ role:'guardian', name:'Alice Nakato', email:'alice.nakato@gmail.com', phone:'+256 700 118 226', provider:'google' });
+    toast('Signed in as demo parent · Alice Nakato','success');
+    showView('view-purchases');
+  } else {
+    setSession({ role:'school', schoolId:'sch1', name:"St. Andrew's High School", email:'head@standrews.ac.ug', phone:'+256 772 118 340' });
+    toast("Signed in as St. Andrew's High School",'success');
+    showView('view-dashboard');
+  }
+  if(pendingCourse){ const c = pendingCourse; pendingCourse = null; startCheckout(c); }
+}
+
+/* ---------- OTP ---------- */
+let otpCallback = null;
+function openOtp(target, cb){
+  otpCallback = cb;
+  $('#otpTarget').textContent = target;
+  $$('#otpInputs input').forEach(i => i.value = '');
+  openModal('otpModal');
+  setTimeout(() => $$('#otpInputs input')[0].focus(), 120);
+}
+function otpNext(el, idx){
+  el.value = el.value.replace(/\D/g,'');
+  if(el.value && idx < 5) $$('#otpInputs input')[idx+1].focus();
+  if($$('#otpInputs input').every(i => i.value)) setTimeout(verifyOtp, 180);
+}
+function otpBack(e, el, idx){
+  if(e.key === 'Backspace' && !el.value && idx > 0) $$('#otpInputs input')[idx-1].focus();
+}
+function verifyOtp(){
+  const code = $$('#otpInputs input').map(i => i.value).join('');
+  if(code.length < 6) return toast('Enter the full 6-digit code.','error');
+  closeModal('otpModal');
+  if(otpCallback){ const cb = otpCallback; otpCallback = null; cb(); }
+}
+
+/* =========================================================
+   MARKETPLACE
+   ========================================================= */
+function schoolCard(s){
+  const forms = formsBySchool(s.id).filter(f => f.active !== false);
+  const min = forms.length ? Math.min(...forms.map(f => f.price)) : 0;
+  return `
+  <div class="reveal card-hover rounded-3xl border border-slate-200/80 bg-white overflow-hidden">
+    <div class="grad-brand h-24 relative">
+      <div class="absolute inset-0 opacity-25" style="background-image:radial-gradient(circle at 80% 20%, #fff 0, transparent 45%)"></div>
+      <span class="absolute -bottom-6 left-6 h-14 w-14 rounded-2xl bg-white shadow-soft grid place-items-center text-brand-700 font-extrabold">${esc(s.initials)}</span>
+      <span class="absolute right-4 top-4 chip bg-white/20 text-white backdrop-blur">
+        <svg viewBox="0 0 24 24" class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Verified
+      </span>
+    </div>
+    <div class="p-6 pt-9">
+      <h3 class="font-extrabold text-[1.02rem] leading-snug">${esc(s.name)}</h3>
+      <p class="text-[.78rem] text-slate-500 font-semibold mt-1">${esc(s.city)}, ${esc(s.country)} · ${esc(s.type)}</p>
+      <div class="flex items-center gap-3 mt-3 text-[.75rem] font-bold text-slate-500">
+        <span class="flex items-center gap-1 text-accent-500">★ <span class="text-slate-600">${s.rating}</span></span>
+        <span class="h-1 w-1 rounded-full bg-slate-300"></span>
+        <span>${forms.length} form${forms.length===1?'':'s'}</span>
+      </div>
+      <div class="flex items-end justify-between mt-5 pt-5 border-t border-slate-100">
+        <div>
+          <p class="text-[.68rem] font-extrabold uppercase tracking-[.12em] text-slate-400">From</p>
+          <p class="font-extrabold text-brand-700">${min ? fmt(min, s.currency) : '—'}</p>
+        </div>
+        <button onclick="openSchoolModal('${s.id}')" class="btn px-4 py-2.5 bg-ink text-white text-[.82rem] hover:bg-slate-800">View forms</button>
+      </div>
+    </div>
+  </div>`;
+}
+function renderSchools(){
+  const q = ($('#schoolSearch').value || '').toLowerCase().trim();
+  const lvl = $('#schoolLevel').value;
+  const grid = $('#schoolGrid');
+  const list = db.schools.filter(s => {
+    const hay = (s.name + ' ' + s.city + ' ' + s.country).toLowerCase();
+    return (!q || hay.includes(q)) && (!lvl || s.type === lvl);
+  });
+  grid.innerHTML = list.map(schoolCard).join('');
+  $('#schoolEmpty').classList.toggle('hidden', list.length > 0);
+  observeReveals();
+}
+
+function openSchoolModal(id){
+  const s = schoolById(id); if(!s) return;
+  $('#smInitials').textContent = s.initials;
+  $('#smName').textContent = s.name;
+  $('#smMeta').textContent = `${s.city}, ${s.country} · ${s.type} school · ★ ${s.rating}`;
+  const forms = formsBySchool(s.id).filter(f => f.active !== false);
+  $('#schoolModalBody').innerHTML = `
+    <div class="rounded-2xl bg-slate-50 border border-slate-100 p-4">
+      <p class="text-[.68rem] font-extrabold uppercase tracking-[.14em] text-slate-400">About</p>
+      <p class="text-sm text-slate-600 mt-2 leading-relaxed">${esc(s.motto)} · Official email ${esc(s.contact.email)} · Phone ${esc(s.contact.phone)}</p>
+    </div>
+
+    <div>
+      <p class="text-[.68rem] font-extrabold uppercase tracking-[.14em] text-slate-400 mb-3">Leadership credentials</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        ${s.team.map(t => `
+          <div class="rounded-2xl border border-slate-200 p-3.5">
+            <p class="text-[.68rem] font-extrabold text-brand-600 uppercase tracking-[.1em]">${esc(t.role)}</p>
+            <p class="text-sm font-bold mt-1">${esc(t.name)}</p>
+            <p class="text-[.74rem] text-slate-500 font-semibold mt-0.5">${esc(t.phone)}</p>
+            <p class="text-[.74rem] text-slate-500 truncate">${esc(t.email)}</p>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div>
+      <p class="text-[.68rem] font-extrabold uppercase tracking-[.14em] text-slate-400 mb-3">Forms available (${forms.length})</p>
+      <div class="space-y-2.5">
+        ${forms.map(f => `
+          <div class="rounded-2xl border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="min-w-[180px]">
+              <span class="chip bg-slate-100 text-slate-600">${esc(f.category)}</span>
+              <p class="font-bold text-sm mt-2">${esc(f.title)}</p>
+              <p class="text-[.75rem] text-slate-500 font-semibold">${esc(f.desc)}</p>
+            </div>
+            <div class="text-right">
+              <p class="font-extrabold text-brand-700">${fmt(f.price, s.currency)}</p>
+              <button onclick="startCheckout('${f.id}')" class="btn mt-2 px-4 py-2.5 grad-brand text-white text-[.82rem]">Buy form</button>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+  `;
+  openModal('schoolModal');
+}
+
+/* =========================================================
+   CHECKOUT
+   ========================================================= */
+let pendingCourse = null;
+let coState = {};
+
+function startCheckout(formId){
+  const f = formById(formId); if(!f) return;
+  const s = schoolById(f.schoolId);
+  if(!session){ pendingCourse = formId; closeModal('schoolModal'); openAuth('google'); toast('Sign in to continue your purchase.','info'); return; }
+  if(session.role === 'school'){ return toast('School accounts cannot buy forms. Please use a guardian account.','error'); }
+
+  coState = { form:f, school:s, step:1, child:{}, payment:{} };
+  closeModal('schoolModal');
+  $('#coTitle').textContent = 'Buy · ' + f.category;
+  renderCheckout();
+  openModal('checkoutModal');
+}
+
+function coProgress(step){
+  $$('#checkoutModal [data-cstep]').forEach((el,i) => {
+    el.className = 'h-1.5 flex-1 rounded-full ' + (i < step ? 'bg-brand-600' : 'bg-slate-200');
+  });
+}
+
+function renderCheckout(){
+  const { form:f, school:s, step } = coState;
+  coProgress(step);
+  const body = $('#coBody');
+
+  if(step === 1){
+    body.innerHTML = `
+      <div class="rounded-2xl border border-slate-200 p-4">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <span class="chip bg-brand-50 text-brand-700">${esc(f.category)}</span>
+            <p class="font-extrabold mt-2">${esc(f.title)}</p>
+            <p class="text-[.78rem] text-slate-500 font-semibold mt-0.5">${esc(s.name)} · ${esc(s.city)}</p>
+          </div>
+          <p class="font-extrabold text-brand-700 shrink-0">${fmt(f.price, s.currency)}</p>
+        </div>
+      </div>
+
+      <div class="mt-4 rounded-2xl bg-slate-50 border border-slate-100 p-4 space-y-2 text-sm">
+        <div class="flex justify-between"><span class="text-slate-500 font-semibold">Form fee</span><span class="font-bold">${fmt(f.price, s.currency)}</span></div>
+        <div class="flex justify-between"><span class="text-slate-500 font-semibold">EduForm service fee</span><span class="font-bold">${fmt(0, s.currency)}</span></div>
+        <div class="flex justify-between"><span class="text-slate-500 font-semibold">Processing</span><span class="font-bold">${fmt(0, s.currency)}</span></div>
+        <div class="h-px bg-slate-200 my-1"></div>
+        <div class="flex justify-between text-base"><span class="font-extrabold">Total</span><span class="font-extrabold text-brand-700">${fmt(f.price, s.currency)}</span></div>
+      </div>
+
+      <div class="mt-4 rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4 flex gap-3">
+        <svg viewBox="0 0 24 24" class="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+        <p class="text-[.8rem] text-emerald-800 font-semibold leading-relaxed">Your payment is held securely and released to the school. The form unlocks instantly after payment.</p>
+      </div>
+
+      <button onclick="coNext()" class="btn w-full mt-5 py-3.5 grad-brand text-white shadow-glow">Continue to child details</button>
+    `;
+  }
+
+  if(step === 2){
+    body.innerHTML = `
+      <p class="text-[.68rem] font-extrabold uppercase tracking-[.14em] text-slate-400 mb-4">Who is this form for?</p>
+      <div class="space-y-4">
+        <div>
+          <label class="lbl">Child's full name *</label>
+          <input id="coChild" class="field" placeholder="e.g. Ethan Nakato" value="${esc(coState.child.name||'')}">
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="lbl">Class applying for *</label>
+            <input id="coClass" class="field" placeholder="e.g. Senior 1" value="${esc(coState.child.class||'')}">
+          </div>
+          <div>
+            <label class="lbl">Year of birth <span class="text-slate-400 font-medium">(optional)</span></label>
+            <input id="coDob" class="field" placeholder="e.g. 2012" value="${esc(coState.child.dob||'')}">
+          </div>
+        </div>
+        <div class="h-px bg-slate-100 my-1"></div>
+        <p class="text-[.68rem] font-extrabold uppercase tracking-[.14em] text-slate-400">Guardian details</p>
+        <div>
+          <label class="lbl">Guardian's full name *</label>
+          <input id="coGuardian" class="field" value="${esc(session.name||'')}">
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="lbl">Phone number *</label>
+            <input id="coPhone" class="field" placeholder="+256 700 000 000" value="${esc(session.phone||'')}">
+          </div>
+          <div>
+            <label class="lbl">Relationship to child</label>
+            <select id="coRelation" class="field">
+              <option>Parent</option><option>Guardian</option><option>Sponsor</option><option>Relative</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="lbl">Email address *</label>
+          <input id="coEmail" class="field" placeholder="you@email.com" value="${esc(session.email||'')}">
+        </div>
+      </div>
+      <div class="flex gap-3 mt-6">
+        <button onclick="coStep(1)" class="btn px-5 py-3.5 border border-slate-200 text-slate-600">Back</button>
+        <button onclick="coNext()" class="btn flex-1 py-3.5 grad-brand text-white shadow-glow">Continue to payment</button>
+      </div>
+    `;
+  }
+
+  if(step === 3){
+    const methods = [
+      { id:'momo',   label:'MTN Mobile Money', sub:'Instant · most popular', icon:'📱' },
+      { id:'airtel', label:'Airtel Money',      sub:'Instant', icon:'📲' },
+      { id:'card',   label:'Visa / Mastercard', sub:'Secure 3-D checkout', icon:'💳' }
+    ];
+    body.innerHTML = `
+      <div class="rounded-2xl bg-slate-50 border border-slate-100 p-4 mb-4">
+        <p class="text-[.78rem] font-bold">Child: <span class="text-slate-600">${esc(coState.child.name)}</span></p>
+        <p class="text-[.78rem] font-bold mt-0.5">Class: <span class="text-slate-600">${esc(coState.child.class)}</span></p>
+        <p class="text-[.78rem] font-bold mt-0.5">Form: <span class="text-slate-600">${esc(f.title)}</span></p>
+      </div>
+      <p class="text-[.68rem] font-extrabold uppercase tracking-[.14em] text-slate-400 mb-3">Payment method</p>
+      <div class="space-y-2.5">
+        ${methods.map((m,i) => `
+          <label class="flex items-center gap-3 rounded-2xl border-2 ${i===0?'border-brand-500 bg-brand-50/50':'border-slate-200'} p-3.5 cursor-pointer co-method" data-method="${m.id}">
+            <input type="radio" name="coMethod" value="${m.id}" ${i===0?'checked':''} onchange="selectMethod('${m.id}')" class="h-4 w-4 text-brand-600 focus:ring-brand-500">
+            <span class="text-lg">${m.icon}</span>
+            <span class="flex-1"><span class="block text-sm font-bold">${m.label}</span><span class="block text-[.72rem] text-slate-500 font-semibold">${m.sub}</span></span>
+          </label>`).join('')}
+      </div>
+      <div id="coPayFields" class="mt-4"></div>
+      <div class="rounded-2xl border border-slate-200 p-4 mt-5 flex items-center justify-between">
+        <span class="text-sm font-bold text-slate-500">Amount to pay</span>
+        <span class="font-extrabold text-brand-700 text-lg">${fmt(f.price, s.currency)}</span>
+      </div>
+      <div class="flex gap-3 mt-5">
+        <button onclick="coStep(2)" class="btn px-5 py-3.5 border border-slate-200 text-slate-600">Back</button>
+        <button onclick="coPay()" class="btn flex-1 py-3.5 grad-brand text-white shadow-glow">
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Pay ${fmt(f.price, s.currency)}
+        </button>
+      </div>
+    `;
+    selectMethod('momo');
+  }
+}
+
+function coStep(n){ coState.step = n; renderCheckout(); }
+
+function selectMethod(m){
+  $$('.co-method').forEach(el => {
+    const on = el.dataset.method === m;
+    el.className = 'flex items-center gap-3 rounded-2xl border-2 ' + (on ? 'border-brand-500 bg-brand-50/50' : 'border-slate-200') + ' p-3.5 cursor-pointer co-method';
+  });
+  const box = $('#coPayFields');
+  if(m === 'card'){
+    box.innerHTML = `
+      <div class="space-y-3">
+        <div><label class="lbl">Card number *</label><input id="coCard" class="field" placeholder="4242 4242 4242 4242"></div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label class="lbl">Expiry *</label><input id="coExp" class="field" placeholder="MM/YY"></div>
+          <div><label class="lbl">CVC *</label><input id="coCvc" class="field" placeholder="123"></div>
+        </div>
+      </div>`;
+  } else {
+    box.innerHTML = `
+      <div>
+        <label class="lbl">${m === 'momo' ? 'MTN' : 'Airtel'} mobile money number *</label>
+        <input id="coMomo" class="field" placeholder="+256 700 000 000" value="${esc(coState.child.phone||session.phone||'')}">
+        <p class="text-[.72rem] text-slate-400 mt-2 font-semibold">You will receive a prompt on your phone to authorise the payment.</p>
+      </div>`;
+  }
+}
+
+function coNext(){
+  if(coState.step === 1) return coStep(2);
+  if(coState.step === 2){
+    const name = $('#coChild').value.trim();
+    const cls  = $('#coClass').value.trim();
+    const g    = $('#coGuardian').value.trim();
+    const p    = $('#coPhone').value.trim();
+    const e    = $('#coEmail').value.trim();
+    if(name.length < 3) return toast("Please enter the child's full name.",'error');
+    if(!cls) return toast('Please enter the class the child is applying for.','error');
+    if(g.length < 3) return toast("Please enter the guardian's name.",'error');
+    if(p.length < 7) return toast('Please enter a valid phone number.','error');
+    if(!e.includes('@')) return toast('Please enter a valid email address.','error');
+    coState.child = { name, class:cls, dob:$('#coDob').value.trim(), relation:$('#coRelation').value };
+    coState.payment = { guardian:g, phone:p, email:e };
+    return coStep(3);
+  }
+}
+
+function coPay(){
+  const method = ($('input[name=coMethod]:checked') || {}).value || 'momo';
+  const methodLabel = method === 'momo' ? 'MTN Mobile Money' : method === 'airtel' ? 'Airtel Money' : 'Visa Card';
+  if(method === 'card'){
+    const c = $('#coCard').value.replace(/\s/g,'');
+    if(c.length < 12) return toast('Enter a valid card number.','error');
+    if(!$('#coExp').value) return toast('Enter the card expiry date.','error');
+    if(!$('#coCvc').value) return toast('Enter the card CVC.','error');
+  } else {
+    const m = ($('#coMomo') || {}).value || '';
+    if(m.replace(/\D/g,'').length < 9) return toast('Enter a valid mobile money number.','error');
+  }
+
+  $('#coBody').innerHTML = `
+    <div class="py-12 text-center">
+      <span class="inline-block h-14 w-14 rounded-full border-[5px] border-slate-200 border-t-brand-600 spin"></span>
+      <p class="mt-5 font-extrabold">Authorising payment…</p>
+      <p class="text-sm text-slate-500 mt-1">Please approve the prompt on your device.</p>
+      <div class="mt-6 max-w-xs mx-auto space-y-2 text-left">
+        <div class="flex items-center gap-2 text-[.8rem] font-semibold text-slate-500"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Verifying guardian</div>
+        <div class="flex items-center gap-2 text-[.8rem] font-semibold text-slate-500"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Charging ${fmt(coState.form.price, coState.school.currency)}</div>
+        <div class="flex items-center gap-2 text-[.8rem] font-semibold text-slate-500"><span class="h-1.5 w-1.5 rounded-full bg-slate-300"></span> Issuing form &amp; receipt</div>
+      </div>
+    </div>`;
+
+  setTimeout(() => {
+    const ref = 'EDF-' + Math.floor(100000 + Math.random()*899999);
+    const order = {
+      id: uid('o'),
+      ref,
+      schoolId: coState.school.id,
+      formId: coState.form.id,
+      formTitle: coState.form.title,
+      category: coState.form.category,
+      childName: coState.child.name,
+      childClass: coState.child.class,
+      childDob: coState.child.dob,
+      guardianName: coState.payment.guardian,
+      guardianEmail: coState.payment.email,
+      guardianPhone: coState.payment.phone,
+      relation: coState.child.relation,
+      amount: coState.form.price,
+      currency: coState.school.currency,
+      method: methodLabel,
+      status:'Paid',
+      date: new Date().toISOString(),
+      buyerEmail: session.email || coState.payment.email
+    };
+    db.orders.unshift(order);
+    saveDB();
+
+    $('#coBody').innerHTML = `
+      <div class="text-center py-4">
+        <span class="inline-grid place-items-center h-16 w-16 rounded-full bg-emerald-50">
+          <svg viewBox="0 0 24 24" class="h-8 w-8 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </span>
+        <h4 class="mt-4 text-xl font-extrabold">Payment successful</h4>
+        <p class="text-sm text-slate-500 mt-1">Your form is ready to download.</p>
+
+        <div class="mt-6 text-left rounded-2xl border border-slate-200 p-4 space-y-2 text-[.82rem]">
+          <div class="flex justify-between"><span class="text-slate-500 font-semibold">Receipt no.</span><span class="font-extrabold">${ref}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500 font-semibold">School</span><span class="font-bold text-right">${esc(coState.school.name)}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500 font-semibold">Form</span><span class="font-bold text-right">${esc(coState.form.category)}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500 font-semibold">Child</span><span class="font-bold">${esc(order.childName)}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500 font-semibold">Class</span><span class="font-bold">${esc(order.childClass)}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500 font-semibold">Paid via</span><span class="font-bold">${methodLabel}</span></div>
+          <div class="h-px bg-slate-100 my-1"></div>
+          <div class="flex justify-between"><span class="font-extrabold">Amount</span><span class="font-extrabold text-brand-700">${fmt(order.amount, order.currency)}</span></div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 mt-6">
+          <button onclick="downloadForm('${order.id}')" class="btn flex-1 py-3.5 grad-brand text-white shadow-glow">Download form</button>
+          <button onclick="closeModal('checkoutModal');showView('view-purchases')" class="btn flex-1 py-3.5 border border-slate-200 text-slate-600">My purchases</button>
+        </div>
+        <p class="text-[.72rem] text-slate-400 mt-4">A copy of this receipt was sent to ${esc(order.guardianEmail)}.</p>
+      </div>`;
+
+    toast('Payment received — form unlocked!', 'success');
+  }, 2000);
+}
+
+/* =========================================================
+   FORM DOWNLOAD
+   ========================================================= */
+function downloadForm(orderId){
+  const o = db.orders.find(x => x.id === orderId); if(!o) return;
+  const s = schoolById(o.schoolId);
+  const f = formById(o.formId) || { title:o.formTitle, category:o.category, desc:'' };
+  const head = s.team.find(t => t.role === 'Head Teacher') || s.team[0] || {};
+  const deputy = s.team.find(t => t.role === 'Deputy Head Teacher') || {};
+  const acad = s.team.find(t => t.role === 'Academic Master / Mistress') || {};
+
+  const extra = o.category === 'Joining Instructions' ? `
+    <h2>Joining Instructions</h2>
+    <ol>
+      <li>Report to the school on the opening day between 8:00am and 11:00am.</li>
+      <li>Bring a hard copy of this document along with the child's birth certificate.</li>
+      <li>Full school uniform, sportswear and a pair of black closed shoes are required.</li>
+      <li>Fees must be cleared at the bursar's office within the first two weeks of term.</li>
+      <li>Boarding students should report with a mattress, bedsheets and a mosquito net.</li>
+    </ol>` : o.category === 'Interview Form' ? `
+    <h2>Interview Details</h2>
+    <p>Present this form at the admissions office on the interview day. The interview takes approximately
+       20 minutes and covers numeracy, literacy and general knowledge appropriate to the class applied for.</p>
+    <table><tr><th>Interview date</th><td>To be scheduled by the school</td></tr>
+    <tr><th>Reporting time</th><td>8:30am</td></tr><tr><th>Venue</th><td>Main administration block</td></tr></table>` : `
+    <h2>Section B — Applicant Information</h2>
+    <table>
+      <tr><th>Child's full name</th><td>${esc(o.childName)}</td></tr>
+      <tr><th>Class applied for</th><td>${esc(o.childClass)}</td></tr>
+      <tr><th>Year of birth</th><td>${esc(o.childDob || '—')}</td></tr>
+      <tr><th>Guardian name</th><td>${esc(o.guardianName)}</td></tr>
+      <tr><th>Relationship</th><td>${esc(o.relation || 'Parent')}</td></tr>
+      <tr><th>Guardian phone</th><td>${esc(o.guardianPhone)}</td></tr>
+      <tr><th>Guardian email</th><td>${esc(o.guardianEmail)}</td></tr>
+    </table>`;
+
+  const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>${esc(f.title)} — ${esc(s.name)}</title>
+<style>
+  body{font-family:Georgia,'Times New Roman',serif;max-width:760px;margin:40px auto;padding:0 24px;color:#111;line-height:1.6}
+  header{border-bottom:3px solid #4f46e5;padding-bottom:16px;margin-bottom:24px}
+  .brand{font-family:Arial,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#4f46e5;font-weight:bold}
+  h1{font-size:24px;margin:8px 0 4px}
+  .meta{font-family:Arial,sans-serif;font-size:13px;color:#555}
+  h2{font-size:16px;margin-top:28px;border-left:4px solid #f59e0b;padding-left:10px}
+  table{width:100%;border-collapse:collapse;margin-top:12px;font-family:Arial,sans-serif;font-size:13px}
+  th,td{border:1px solid #ddd;padding:10px;text-align:left}
+  th{background:#f6f7fb;width:38%;color:#333}
+  ol,ul{font-size:14px}
+  .stamp{margin-top:36px;font-family:Arial,sans-serif;font-size:12px;color:#666;border-top:1px dashed #bbb;padding-top:14px}
+  .sig{margin-top:40px;display:flex;gap:40px;font-family:Arial,sans-serif;font-size:12px}
+  .sig div{flex:1;border-top:1px solid #333;padding-top:6px}
+</style></head><body>
+<header>
+  <div class="brand">EduForm · Official Document</div>
+  <h1>${esc(s.name)}</h1>
+  <p class="meta">${esc(s.city)}, ${esc(s.country)} · ${esc(s.contact.email)} · ${esc(s.contact.phone)}</p>
+</header>
+<h2>${esc(f.category)}</h2>
+<p style="font-family:Arial,sans-serif;font-size:14px"><strong>${esc(f.title)}</strong></p>
+<p style="font-family:Arial,sans-serif;font-size:13px;color:#555">Receipt no. ${esc(o.ref)} · Issued ${dt(o.date)} · Paid ${fmt(o.amount, o.currency)} via ${esc(o.method)}</p>
+${extra}
+<h2>Leadership &amp; Contacts</h2>
+<table>
+  <tr><th>Head Teacher</th><td>${esc(head.name)} · ${esc(head.phone)} · ${esc(head.email)}</td></tr>
+  <tr><th>Deputy Head Teacher</th><td>${esc(deputy.name || '—')} ${deputy.phone ? '· ' + esc(deputy.phone) : ''}</td></tr>
+  <tr><th>Academic Master / Mistress</th><td>${esc(acad.name || '—')} ${acad.email ? '· ' + esc(acad.email) : ''}</td></tr>
+  <tr><th>School Manager</th><td>${esc((s.team.find(t=>t.role==='School Manager / Director')||{}).name || '—')}</td></tr>
+</table>
+<div class="sig"><div>Guardian signature</div><div>School stamp</div></div>
+<div class="stamp">This document was generated by EduForm and is valid without a handwritten signature until presented at the school office. Verify authenticity at eduform.app/verify using receipt ${esc(o.ref)}.</div>
+</body></html>`;
+
+  const blob = new Blob([html], { type:'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = s.name.replace(/[^a-z0-9]+/gi,'_') + '_' + (o.category + '_' + o.childName).replace(/[^a-z0-9]+/gi,'_') + '.html';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+  toast('Form downloaded to your device.', 'success');
+}
+
+/* =========================================================
+   MY PURCHASES
+   ========================================================= */
+function renderPurchases(){
+  const wrap = $('#purchasesList');
+  if(!session){ wrap.innerHTML = ''; return; }
+  const mine = db.orders.filter(o =>
+    (session.email && o.guardianEmail && o.guardianEmail.toLowerCase() === session.email.toLowerCase()) ||
+    (session.phone && o.guardianPhone === session.phone) ||
+    (o.buyerEmail && session.email && o.buyerEmail.toLowerCase() === session.email.toLowerCase()) ||
+    (session.email === 'alice.nakato@gmail.com' && o.guardianEmail === 'alice.nakato@gmail.com')
+  );
+
+  if(!mine.length){
+    wrap.innerHTML = `
+      <div class="rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
+        <span class="inline-grid place-items-center h-14 w-14 rounded-2xl bg-slate-50">
+          <svg viewBox="0 0 24 24" class="h-6 w-6 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
+        </span>
+        <p class="mt-4 font-extrabold">No purchases yet</p>
+        <p class="text-sm text-slate-500 mt-1">Buy a joining form, interview form or joining instructions from any school.</p>
+        <button onclick="goHome();setTimeout(()=>document.querySelector('#schools').scrollIntoView({behavior:'smooth'}),80)" class="btn mt-6 px-5 py-3 grad-brand text-white text-sm">Browse schools</button>
+      </div>`;
+    return;
+  }
+
+  wrap.innerHTML = mine.map(o => {
+    const s = schoolById(o.schoolId) || { name:'School', initials:'SC', currency:o.currency };
+    return `
+    <div class="rounded-3xl bg-white border border-slate-200 p-5 sm:p-6 flex flex-wrap items-center gap-5">
+      <span class="h-12 w-12 rounded-2xl grad-brand grid place-items-center text-white font-extrabold shrink-0">${esc(s.initials)}</span>
+      <div class="flex-1 min-w-[220px]">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="chip bg-brand-50 text-brand-700">${esc(o.category)}</span>
+          <span class="chip ${o.status === 'Verified' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}">${esc(o.status === 'Verified' ? 'Verified by school' : 'Paid · awaiting verification')}</span>
+        </div>
+        <p class="font-extrabold mt-2">${esc(o.formTitle)}</p>
+        <p class="text-[.8rem] text-slate-500 font-semibold mt-0.5">${esc(s.name)} · Child: <span class="text-slate-700">${esc(o.childName)}</span> (${esc(o.childClass)})</p>
+        <p class="text-[.74rem] text-slate-400 font-semibold mt-0.5">Receipt ${esc(o.ref)} · ${dt(o.date)} · ${esc(o.method)}</p>
+      </div>
+      <div class="text-right">
+        <p class="font-extrabold text-brand-700">${fmt(o.amount, o.currency)}</p>
+        <button onclick="downloadForm('${o.id}')" class="btn mt-2 px-4 py-2.5 bg-ink text-white text-[.82rem] hover:bg-slate-800">Download</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* =========================================================
+   SCHOOL REGISTRATION WIZARD
+   ========================================================= */
+let wizStep = 1;
+const WIZ_MAX = 4;
+let teamData = {};
+let formRows = [];
+
+function startSchoolRegistration(){
+  if(session && session.role === 'school'){ showView('view-dashboard'); return; }
+  wizStep = 1;
+  buildTeamRows();
+  buildFormRows();
+  updateWiz();
+  showView('view-register');
+}
+
+function buildTeamRows(){
+  const host = $('#teamRows');
+  host.innerHTML = ROLES.map((r, i) => `
+    <div class="rounded-2xl border border-slate-200 p-5">
+      <div class="flex items-center justify-between gap-3 flex-wrap">
+        <div class="flex items-center gap-2.5">
+          <span class="h-9 w-9 rounded-xl ${r.required ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-500'} grid place-items-center text-[.7rem] font-extrabold">${r.required ? '★' : (i+1)}</span>
+          <div>
+            <p class="font-extrabold text-[.9rem]">${r.label} ${r.required ? '<span class="text-rose-500">*</span>' : '<span class="text-slate-400 font-semibold">(optional)</span>'}</p>
+            <p class="text-[.7rem] text-slate-500 font-semibold">${r.hint}</p>
+          </div>
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-4 mt-4">
+        <div><label class="lbl">Full name</label><input data-team="${r.key}" data-f="name" class="field" placeholder="e.g. Mr. Daniel Okello"></div>
+        <div><label class="lbl">Phone number</label><input data-team="${r.key}" data-f="phone" class="field" placeholder="+256 700 000 000"></div>
+        <div><label class="lbl">Email address</label><input data-team="${r.key}" data-f="email" class="field" placeholder="name@school.ac.ug"></div>
+      </div>
+    </div>`).join('');
+}
+function collectTeam(){
+  const out = {};
+  ROLES.forEach(r => {
+    const g = f => ($(`[data-team="${r.key}"][data-f="${f}"]`)?.value || '').trim();
+    out[r.key] = { role:r.label.replace(' / Head Mistress','').replace(' / Mistress',''), name:g('name'), phone:g('phone'), email:g('email'), required:r.required };
+  });
+  return out;
+}
+
+function buildFormRows(){
+  if(!formRows.length){
+    formRows = [
+      { category:'Joining Form', title:'Joining Form', price:20000, desc:'Download PDF + submit online' },
+      { category:'Interview Form', title:'Interview Form', price:15000, desc:'Includes interview slot booking' },
+      { category:'Joining Instructions', title:'Joining Instructions Pack', price:10000, desc:'Requirements, fees & term dates' }
+    ];
+  }
+  renderFormRows();
+}
+function renderFormRows(){
+  const cur = $('#rCountry') ? ($('#rCountry').selectedOptions[0].dataset.cur || 'UGX') : 'UGX';
+  $('#formRows').innerHTML = formRows.map((f, i) => `
+    <div class="rounded-2xl border border-slate-200 p-4 grid sm:grid-cols-12 gap-3 items-end">
+      <div class="sm:col-span-3">
+        <label class="lbl">Type</label>
+        <select onchange="formRows[${i}].category=this.value" class="field">
+          ${['Joining Form','Interview Form','Joining Instructions','Other'].map(c => `<option ${c===f.category?'selected':''}>${c}</option>`).join('')}
+        </select>
+      </div>
+      <div class="sm:col-span-4">
+        <label class="lbl">Title</label>
+        <input oninput="formRows[${i}].title=this.value" class="field" value="${esc(f.title)}">
+      </div>
+      <div class="sm:col-span-2">
+        <label class="lbl">Price (${cur})</label>
+        <input type="number" min="0" oninput="formRows[${i}].price=Number(this.value)" class="field" value="${f.price}">
+      </div>
+      <div class="sm:col-span-2">
+        <label class="lbl">Note</label>
+        <input oninput="formRows[${i}].desc=this.value" class="field" value="${esc(f.desc)}">
+      </div>
+      <div class="sm:col-span-1 flex sm:justify-end">
+        <button type="button" onclick="removeFormRow(${i})" class="h-11 w-11 grid place-items-center rounded-xl text-rose-500 hover:bg-rose-50" title="Remove">
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+        </button>
+      </div>
+    </div>`).join('');
+}
+function addFormRow(){ formRows.push({ category:'Joining Form', title:'', price:0, desc:'' }); renderFormRows(); }
+function removeFormRow(i){ formRows.splice(i,1); renderFormRows(); }
+function syncCurrency(){
+  const cur = $('#rCountry').selectedOptions[0].dataset.cur;
+  const map = { UGX:20000, KES:500, RWF:3000, TZS:5000 };
+  const base = map[cur] || 20000;
+  formRows[0] && (formRows[0].price = base);
+  formRows[1] && (formRows[1].price = Math.round(base*0.75));
+  formRows[2] && (formRows[2].price = Math.round(base*0.5));
+  renderFormRows();
+}
+
+function updateWiz(){
+  for(let i=1;i<=WIZ_MAX;i++){
+    const step = $(`[data-step="${i}"]`);
+    step.classList.toggle('hidden', i !== wizStep);
+    const st = $(`[data-stepper="${i}"]`);
+    const dot = st.querySelector('.step-dot');
+    const label = st.querySelector('p');
+    const done = i < wizStep;
+    const active = i === wizStep;
+    dot.className = 'step-dot h-9 w-9 rounded-full grid place-items-center text-xs font-extrabold ' +
+      (active ? 'bg-brand-600 text-white' : done ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-400');
+    dot.textContent = done ? '✓' : String(i);
+    if(label) label.className = 'text-[.8rem] font-extrabold ' + (active ? '' : done ? 'text-emerald-600' : 'text-slate-400');
+    const prog = $(`[data-progress="${i}"]`);
+    if(prog) prog.className = 'h-1 flex-1 rounded-full mx-2 ' + (i < wizStep ? 'bg-emerald-400' : 'bg-slate-100');
+  }
+  $('#wizBack').classList.toggle('invisible', wizStep === 1);
+  $('#wizNext').textContent = wizStep === WIZ_MAX ? 'Send verification & launch' : 'Continue';
+  if(wizStep === 4) buildReview();
+}
+
+function wizPrev(){ if(wizStep > 1){ wizStep--; updateWiz(); } }
+
+function wizNext(){
+  if(wizStep === 1){
+    const req = ['rName','rCity','rEmail','rPhone'];
+    for(const id of req){ if(!$('#'+id).value.trim()){ $('#'+id).focus(); return toast('Please complete all required school details.','error'); } }
+    if(!$('#rEmail').value.includes('@')) return toast('Enter a valid official school email.','error');
+  }
+  if(wizStep === 2){
+    teamData = collectTeam();
+    const h = teamData.head;
+    if(!h.name || !h.phone || !h.email) return toast('Head Teacher name, phone and email are required.','error');
+    if(!h.email.includes('@')) return toast('Enter a valid email for the Head Teacher.','error');
+    const m = teamData.manager;
+    if(!m.name || !m.phone) return toast('The School Manager / Director details are required.','error');
+  }
+  if(wizStep === 3){
+    formRows = formRows.filter(f => f.title.trim());
+    if(!formRows.length) return toast('Add at least one form to sell.','error');
+  }
+  if(wizStep === 4) return launchSchool();
+  wizStep++; updateWiz();
+  window.scrollTo({ top: 120, behavior:'smooth' });
+}
+
+function buildReview(){
+  const cur = $('#rCountry').selectedOptions[0].dataset.cur;
+  const t = teamData.head ? teamData : collectTeam();
+  $('#reviewBox').innerHTML = `
+    <div class="rounded-2xl border border-slate-200 p-5">
+      <p class="text-[.68rem] font-extrabold uppercase tracking-[.14em] text-slate-400">School</p>
+      <p class="font-extrabold mt-1">${esc($('#rName').value)}</p>
+      <p class="text-sm text-slate-500 font-semibold">${esc($('#rType').value)} · ${esc($('#rCity').value)}, ${esc($('#rCountry').value)}</p>
+      <p class="text-sm text-slate-500 font-semibold">${esc($('#rEmail').value)} · ${esc($('#rPhone').value)}</p>
+    </div>
+    <div class="rounded-2xl border border-slate-200 p-5">
+      <p class="text-[.68rem] font-extrabold uppercase tracking-[.14em] text-slate-400 mb-3">Leadership team</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        ${ROLES.map(r => {
+          const v = t[r.key] || {};
+          if(!v.name) return '';
+          return `<div class="rounded-xl bg-slate-50 p-3">
+            <p class="text-[.66rem] font-extrabold text-brand-600 uppercase tracking-[.1em]">${esc(v.role || r.label)}</p>
+            <p class="text-sm font-bold mt-0.5">${esc(v.name)}</p>
+            <p class="text-[.72rem] text-slate-500 font-semibold">${esc(v.phone || '')}</p>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div class="rounded-2xl border border-slate-200 p-5">
+      <p class="text-[.68rem] font-extrabold uppercase tracking-[.14em] text-slate-400 mb-3">Forms to publish</p>
+      <div class="space-y-2">
+        ${formRows.map(f => `<div class="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+          <span><span class="font-bold">${esc(f.title)}</span><span class="text-slate-400 font-semibold"> · ${esc(f.category)}</span></span>
+          <span class="font-extrabold text-brand-700">${fmt(f.price, cur)}</span></div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function launchSchool(){
+  if(!$('#rTerms').checked) return toast('Please confirm the authorisation statement.','error');
+  const head = teamData.head || collectTeam().head;
+  const phone = head.phone || $('#rPhone').value;
+  openOtp(phone, () => {
+    const cur = $('#rCountry').selectedOptions[0].dataset.cur;
+    const name = $('#rName').value.trim();
+    const school = {
+      id: uid('sch'),
+      name,
+      type: $('#rType').value,
+      city: $('#rCity').value.trim(),
+      country: $('#rCountry').value,
+      currency: cur,
+      motto: $('#rMotto').value.trim() || 'Excellence in education',
+      rating: 5.0,
+      verified: true,
+      initials: name.split(/\s+/).filter(w=>/[A-Za-z]/.test(w[0])).map(w=>w[0]).slice(0,2).join('').toUpperCase(),
+      contact: { email:$('#rEmail').value.trim(), phone:$('#rPhone').value.trim() },
+      team: ROLES.map(r => teamData[r.key]).filter(t => t && t.name).map(t => ({
+        role: t.role.includes('Head') ? 'Head Teacher'
+            : t.role.includes('Deputy') ? 'Deputy Head Teacher'
+            : t.role.includes('Manager') ? 'School Manager / Director'
+            : 'Academic Master / Mistress',
+        name: t.name, phone: t.phone, email: t.email
+      }))
+    };
+    db.schools.push(school);
+    formRows.forEach((f, i) => {
+      db.forms.push({
+        id: uid('f'), schoolId: school.id, category: f.category,
+        title: f.title, price: Number(f.price) || 0,
+        desc: f.desc || 'Download instantly after payment', active:true
+      });
+    });
+    saveDB();
+    setSession({ role:'school', schoolId:school.id, name:school.name, email:school.contact.email, phone:school.contact.phone });
+    renderSchools();
+    showView('view-dashboard');
+    toast('🎉 ' + school.name + ' is now live on EduForm!', 'success');
+  });
+}
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+let dashTab = 'overview';
+function currentSchoolId(){ return session && session.schoolId; }
+
+function setDashTab(t){ dashTab = t; renderDashboard(); }
+
+function renderDashboard(){
+  if(!session || session.role !== 'school'){ 
+    renderDashboardGuest(); 
+    return; 
+  }
+  const s = schoolById(session.schoolId);
+  if(!s){ renderDashboardGuest(); return; }
+  $('#dashHeader').classList.remove('hidden');
+  $('#dashInitials').textContent = s.initials;
+  $('#dashSchoolName').textContent = s.name;
+  $('#dashSchoolMeta').textContent = `${s.city}, ${s.country} · ${s.type} · ${s.contact.email}`;
+  $$('[data-dtab]').forEach(b => b.classList.toggle('active', b.dataset.dtab === dashTab));
+
+  const body = $('#dashBody');
+  if(dashTab === 'overview')  body.innerHTML = dashOverview(s);
+  if(dashTab === 'forms')     body.innerHTML = dashForms(s);
+  if(dashTab === 'orders')    body.innerHTML = dashOrders(s);
+  if(dashTab === 'team')      body.innerHTML = dashTeam(s);
+  if(dashTab === 'payouts')   body.innerHTML = dashPayouts(s);
+  if(dashTab === 'overview')  setTimeout(() => animateBars(), 60);
+}
+
+function renderDashboardGuest(){
+  $('#dashHeader').classList.add('hidden');
+  $$('[data-dtab]').forEach(b => b.classList.add('hidden'));
+  $('#dashBody').innerHTML = `
+    <div class="rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
+      <span class="inline-grid place-items-center h-14 w-14 rounded-2xl bg-slate-50">
+        <svg viewBox="0 0 24 24" class="h-6 w-6 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg>
+      </span>
+      <p class="mt-4 font-extrabold">No school account signed in</p>
+      <p class="text-sm text-slate-500 mt-1">Register your school or sign in with a school account to access the dashboard.</p>
+      <div class="flex flex-wrap gap-3 justify-center mt-6">
+        <button onclick="startSchoolRegistration()" class="btn px-5 py-3 grad-brand text-white text-sm">Register a school</button>
+        <button onclick="demoLogin('school')" class="btn px-5 py-3 border border-slate-200 text-slate-600 text-sm">Open demo school</button>
+      </div>
+    </div>`;
+}
+
+function dashOverview(s){
+  const orders = ordersBySchool(s.id);
+  const revenue = orders.reduce((a,o) => a + Number(o.amount||0), 0);
+  const forms = formsBySchool(s.id).filter(f => f.active !== false);
+  const fee = 0.03;
+  const net = Math.round(revenue * (1 - fee));
+  const last7 = orders.filter(o => (Date.now() - new Date(o.date).getTime()) < 7*864e5).length;
+  const conv = orders.length ? Math.round((forms.length / Math.max(orders.length,1)) * 100) : 0;
+
+  // weekly bars
+  const buckets = [0,0,0,0,0,0,0];
+  orders.forEach(o => {
+    const d = Math.floor((Date.now() - new Date(o.date).getTime()) / 864e5);
+    if(d >= 0 && d < 7) buckets[6-d] += Number(o.amount||0);
+  });
+  const max = Math.max(...buckets, 1);
+  const days = ['M','T','W','T','F','S','S'];
+
+  const topForms = forms.map(f => ({
+    f, count: orders.filter(o => o.formId === f.id).length
+  })).sort((a,b) => b.count - a.count);
+
+  return `
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="rounded-3xl bg-white border border-slate-200 p-5">
+        <div class="flex items-center justify-between">
+          <p class="text-[.72rem] font-extrabold uppercase tracking-[.12em] text-slate-400">Forms sold</p>
+          <span class="h-8 w-8 rounded-xl bg-brand-50 grid place-items-center text-brand-600">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
+          </span>
+        </div>
+        <p class="mt-3 text-3xl font-extrabold tracking-tight">${orders.length}</p>
+        <p class="text-[.72rem] text-emerald-600 font-bold mt-1">+${last7} in the last 7 days</p>
+      </div>
+      <div class="rounded-3xl bg-white border border-slate-200 p-5">
+        <div class="flex items-center justify-between">
+          <p class="text-[.72rem] font-extrabold uppercase tracking-[.12em] text-slate-400">Gross revenue</p>
+          <span class="h-8 w-8 rounded-xl bg-emerald-50 grid place-items-center text-emerald-600">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </span>
+        </div>
+        <p class="mt-3 text-2xl font-extrabold tracking-tight">${fmt(revenue, s.currency)}</p>
+        <p class="text-[.72rem] text-slate-500 font-bold mt-1">Net after 3% fee: ${fmt(net, s.currency)}</p>
+      </div>
+      <div class="rounded-3xl bg-white border border-slate-200 p-5">
+        <div class="flex items-center justify-between">
+          <p class="text-[.72rem] font-extrabold uppercase tracking-[.12em] text-slate-400">Live forms</p>
+          <span class="h-8 w-8 rounded-xl bg-violet-50 grid place-items-center text-violet-600">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          </span>
+        </div>
+        <p class="mt-3 text-3xl font-extrabold tracking-tight">${forms.length}</p>
+        <p class="text-[.72rem] text-slate-500 font-bold mt-1">Published and selling</p>
+      </div>
+      <div class="rounded-3xl bg-white border border-slate-200 p-5">
+        <div class="flex items-center justify-between">
+          <p class="text-[.72rem] font-extrabold uppercase tracking-[.12em] text-slate-400">Pending payout</p>
+          <span class="h-8 w-8 rounded-xl bg-amber-50 grid place-items-center text-amber-600">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 10h18M5 6h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"/></svg>
+          </span>
+        </div>
+        <p class="mt-3 text-2xl font-extrabold tracking-tight">${fmt(net, s.currency)}</p>
+        <p class="text-[.72rem] text-slate-500 font-bold mt-1">Weekly settlement</p>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-[1.4fr_1fr] gap-4 mt-4">
+      <div class="rounded-3xl bg-white border border-slate-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-extrabold">Sales this week</p>
+            <p class="text-[.75rem] text-slate-500 font-semibold">Revenue per day, last 7 days</p>
+          </div>
+          <span class="chip bg-emerald-50 text-emerald-700">${fmt(revenue, s.currency)} total</span>
+        </div>
+        <div class="mt-7 flex items-end gap-2.5 sm:gap-4 h-44">
+          ${buckets.map((v,i) => `
+            <div class="flex-1 flex flex-col items-center gap-2">
+              <span class="text-[.62rem] font-extrabold text-slate-400">${v ? Math.round(v/1000)+'k' : ''}</span>
+              <div class="w-full rounded-t-xl bg-gradient-to-t from-brand-600 to-violet-500 bar" data-h="${Math.max(6, Math.round((v/max)*100))}" style="height:6px"></div>
+              <span class="text-[.68rem] font-extrabold text-slate-400">${days[i]}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <div class="rounded-3xl bg-white border border-slate-200 p-6">
+        <p class="font-extrabold">Top performing forms</p>
+        <p class="text-[.75rem] text-slate-500 font-semibold">By number of sales</p>
+        <div class="mt-5 space-y-4">
+          ${topForms.length ? topForms.slice(0,4).map(({f,count}) => {
+            const pct = orders.length ? Math.round((count/Math.max(orders.length,1))*100) : 0;
+            return `
+            <div>
+              <div class="flex items-center justify-between text-[.8rem]">
+                <span class="font-bold truncate pr-3">${esc(f.title)}</span>
+                <span class="font-extrabold text-slate-500 shrink-0">${count}</span>
+              </div>
+              <div class="mt-1.5 h-2 rounded-full bg-slate-100 overflow-hidden">
+                <div class="h-full rounded-full grad-brand" style="width:${pct}%"></div>
+              </div>
+            </div>`;
+          }).join('') : '<p class="text-sm text-slate-400 font-semibold">No sales yet.</p>'}
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-3xl bg-white border border-slate-200 mt-4 overflow-hidden">
+      <div class="p-6 flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <p class="font-extrabold">Recent orders</p>
+          <p class="text-[.75rem] text-slate-500 font-semibold">Latest applications received</p>
+        </div>
+        <button onclick="setDashTab('orders')" class="btn px-4 py-2.5 border border-slate-200 text-[.82rem] text-slate-600">View all</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="tbl w-full min-w-[620px]">
+          <thead><tr><th>Receipt</th><th>Child</th><th>Form</th><th>Guardian</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody>
+            ${orders.slice(0,5).map(o => `
+              <tr class="row-hover">
+                <td class="font-bold">${esc(o.ref)}</td>
+                <td><span class="font-bold">${esc(o.childName)}</span><span class="block text-[.72rem] text-slate-500 font-semibold">${esc(o.childClass)}</span></td>
+                <td class="text-slate-600">${esc(o.category)}</td>
+                <td class="text-slate-600">${esc(o.guardianName)}<span class="block text-[.72rem] text-slate-400 font-semibold">${esc(o.method)}</span></td>
+                <td class="font-extrabold text-brand-700">${fmt(o.amount, o.currency)}</td>
+                <td><span class="chip ${o.status === 'Verified' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}">${esc(o.status)}</span></td>
+              </tr>`).join('') || '<tr><td colspan="6" class="text-center text-slate-400 py-8 font-semibold">No orders yet.</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function animateBars(){
+  $$('#dashBody .bar').forEach(el => { el.style.height = el.dataset.h + '%'; });
+}
+
+function dashForms(s){
+  const forms = formsBySchool(s.id);
+  return `
+    <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+      <div>
+        <p class="font-extrabold text-lg">Forms &amp; pricing</p>
+        <p class="text-sm text-slate-500">Toggle availability or update the price parents pay.</p>
+      </div>
+      <button onclick="quickAddForm()" class="btn px-4 py-2.5 grad-brand text-white text-sm">+ New form</button>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4" id="dashFormGrid">
+      ${forms.map(f => `
+        <div class="rounded-3xl bg-white border border-slate-200 p-5">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <span class="chip bg-brand-50 text-brand-700">${esc(f.category)}</span>
+              <p class="font-extrabold mt-2.5">${esc(f.title)}</p>
+              <p class="text-[.78rem] text-slate-500 font-semibold mt-0.5">${esc(f.desc)}</p>
+            </div>
+            <label class="inline-flex items-center cursor-pointer shrink-0">
+              <input type="checkbox" ${f.active !== false ? 'checked' : ''} onchange="toggleForm('${f.id}', this.checked)" class="sr-only peer">
+              <span class="w-11 h-6 bg-slate-200 rounded-full peer-checked:bg-emerald-500 relative transition after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:bg-white after:rounded-full after:transition peer-checked:after:translate-x-5"></span>
+            </label>
+          </div>
+          <div class="mt-4 pt-4 border-t border-slate-100 flex items-end justify-between gap-3">
+            <div>
+              <label class="lbl">Price (${s.currency})</label>
+              <input type="number" value="${f.price}" onchange="updateFormPrice('${f.id}', this.value)" class="field w-36">
+            </div>
+            <div class="text-right">
+              <p class="text-[.68rem] font-extrabold uppercase tracking-[.12em] text-slate-400">Sold</p>
+              <p class="font-extrabold">${ordersBySchool(s.id).filter(o => o.formId === f.id).length}</p>
+            </div>
+          </div>
+        </div>`).join('') || '<p class="text-slate-400 font-semibold">No forms yet.</p>'}
+    </div>`;
+}
+function toggleForm(id, on){ const f = formById(id); if(!f) return; f.active = on; saveDB(); toast('Form ' + (on ? 'published' : 'unpublished') + '.', on ? 'success' : 'info'); }
+function updateFormPrice(id, v){ const f = formById(id); if(!f) return; f.price = Number(v) || 0; saveDB(); toast('Price updated.','success'); }
+function quickAddForm(){
+  const s = schoolById(currentSchoolId());
+  db.forms.push({ id:uid('f'), schoolId:s.id, category:'Joining Form', title:'New form', price:0, desc:'Describe what the buyer receives', active:true });
+  saveDB(); renderDashboard(); toast('New form added — set its title and price.','info');
+}
+
+function dashOrders(s){
+  const orders = ordersBySchool(s.id);
+  return `
+    <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+      <div>
+        <p class="font-extrabold text-lg">Applicant orders</p>
+        <p class="text-sm text-slate-500">${orders.length} order${orders.length===1?'':'s'} · grouped by child and class</p>
+      </div>
+      <button onclick="exportCSV('${s.id}')" class="btn px-4 py-2.5 border border-slate-200 text-sm text-slate-600">
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Export CSV
+      </button>
+    </div>
+    <div class="rounded-3xl bg-white border border-slate-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="tbl w-full min-w-[860px]">
+          <thead><tr><th>Receipt</th><th>Child / Class</th><th>Guardian</th><th>Form</th><th>Paid</th><th>Date</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            ${orders.map(o => `
+              <tr class="row-hover">
+                <td class="font-bold">${esc(o.ref)}</td>
+                <td><span class="font-bold">${esc(o.childName)}</span><span class="block text-[.72rem] text-slate-500 font-semibold">${esc(o.childClass)}</span></td>
+                <td><span class="font-semibold">${esc(o.guardianName)}</span><span class="block text-[.72rem] text-slate-400 font-semibold">${esc(o.guardianPhone)}</span></td>
+                <td class="text-slate-600">${esc(o.category)}<span class="block text-[.72rem] text-slate-400 font-semibold">${esc(o.method)}</span></td>
+                <td class="font-extrabold text-brand-700">${fmt(o.amount, o.currency)}</td>
+                <td class="text-slate-500 font-semibold text-[.8rem]">${dt(o.date)}</td>
+                <td><span class="chip ${o.status === 'Verified' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}">${esc(o.status)}</span></td>
+                <td class="text-right">
+                  ${o.status === 'Verified' ? '' : `<button onclick="verifyOrder('${o.id}')" class="btn px-3 py-2 bg-ink text-white text-[.75rem]">Verify</button>`}
+                </td>
+              </tr>`).join('') || '<tr><td colspan="8" class="text-center text-slate-400 py-10 font-semibold">No orders yet. Publish your forms and share your storefront link.</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+function verifyOrder(id){
+  const o = db.orders.find(x => x.id === id); if(!o) return;
+  o.status = 'Verified'; saveDB(); renderDashboard();
+  toast('Order ' + o.ref + ' verified.', 'success');
+}
+function exportCSV(schoolId){
+  const orders = ordersBySchool(schoolId);
+  const rows = [['Receipt','Child name','Class','Guardian','Phone','Email','Form','Category','Amount','Currency','Method','Status','Date']];
+  orders.forEach(o => rows.push([o.ref,o.childName,o.childClass,o.guardianName,o.guardianPhone,o.guardianEmail,o.formTitle,o.category,o.amount,o.currency,o.method,o.status,new Date(o.date).toISOString()]));
+  const csv = rows.map(r => r.map(v => '"' + String(v).replace(/"/g,'""') + '"').join(',')).join('\n');
+  const blob = new Blob([csv], { type:'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'eduform-applicants.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 3000);
+  toast('Applicant list exported as CSV.','success');
+}
+
+function dashTeam(s){
+  return `
+    <div class="rounded-3xl bg-white border border-slate-200 p-6">
+      <div class="flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <p class="font-extrabold text-lg">Leadership credentials</p>
+          <p class="text-sm text-slate-500">These contacts appear publicly on your storefront for parent verification.</p>
+        </div>
+        <span class="chip bg-emerald-50 text-emerald-700">Verified organisation</span>
+      </div>
+      <div class="mt-6 grid sm:grid-cols-2 gap-4">
+        ${s.team.map(t => `
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <div class="flex items-start gap-3">
+              <span class="h-11 w-11 rounded-2xl grad-brand grid place-items-center text-white text-xs font-extrabold shrink-0">${esc(t.name.split(' ').map(w=>w[0]).slice(-2).join('').toUpperCase())}</span>
+              <div class="min-w-0">
+                <p class="text-[.66rem] font-extrabold text-brand-600 uppercase tracking-[.1em]">${esc(t.role)}</p>
+                <p class="font-extrabold mt-0.5">${esc(t.name)}</p>
+                <p class="text-[.78rem] text-slate-500 font-semibold mt-1">${esc(t.phone)}</p>
+                <p class="text-[.78rem] text-slate-500 truncate">${esc(t.email)}</p>
+              </div>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="mt-6 rounded-2xl bg-slate-50 border border-slate-100 p-5">
+        <p class="font-bold text-sm">Need to add the Bursar or Dean of Students?</p>
+        <p class="text-[.8rem] text-slate-500 mt-1">Additional staff roles can be added from the account settings panel. Every added role is verified by SMS before publishing.</p>
+      </div>
+    </div>`;
+}
+
+function dashPayouts(s){
+  const orders = ordersBySchool(s.id);
+  const gross = orders.reduce((a,o) => a + Number(o.amount||0), 0);
+  const fee = Math.round(gross * 0.03);
+  const net = gross - fee;
+  const history = [
+    { ref:'PO-88213', amount: Math.round(net*0.55), date:new Date(Date.now()-11*864e5), status:'Settled', method:'Bank transfer' },
+    { ref:'PO-88104', amount: Math.round(net*0.25), date:new Date(Date.now()-25*864e5), status:'Settled', method:'MTN MoMo' }
+  ];
+  return `
+    <div class="grid lg:grid-cols-[1fr_1.3fr] gap-4">
+      <div class="rounded-3xl grad-dark text-white p-7 relative overflow-hidden">
+        <div class="absolute inset-0 mesh opacity-50"></div>
+        <div class="relative">
+          <p class="text-[.7rem] font-extrabold uppercase tracking-[.16em] text-white/60">Available balance</p>
+          <p class="mt-3 text-3xl font-extrabold tracking-tight">${fmt(net, s.currency)}</p>
+          <div class="mt-5 space-y-2 text-sm">
+            <div class="flex justify-between text-white/70"><span>Gross sales</span><span class="font-bold text-white">${fmt(gross, s.currency)}</span></div>
+            <div class="flex justify-between text-white/70"><span>EduForm fee (3%)</span><span class="font-bold text-white">− ${fmt(fee, s.currency)}</span></div>
+            <div class="h-px bg-white/15 my-2"></div>
+            <div class="flex justify-between"><span class="font-bold">Net payable</span><span class="font-extrabold">${fmt(net, s.currency)}</span></div>
+          </div>
+          <button onclick="requestPayout()" class="btn w-full mt-6 py-3.5 bg-white text-ink hover:bg-slate-100">Request payout</button>
+          <p class="text-[.7rem] text-white/50 mt-3 text-center">Minimum ${fmt(10000, s.currency)} · settles in 1–2 business days</p>
+        </div>
+      </div>
+
+      <div class="rounded-3xl bg-white border border-slate-200 p-6">
+        <p class="font-extrabold text-lg">Payout history</p>
+        <p class="text-sm text-slate-500 mb-5">Transfers to your registered settlement account.</p>
+        <div class="space-y-3">
+          ${history.map(h => `
+            <div class="flex items-center justify-between rounded-2xl border border-slate-200 p-4">
+              <div class="flex items-center gap-3">
+                <span class="h-10 w-10 rounded-xl bg-emerald-50 grid place-items-center text-emerald-600">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                <div>
+                  <p class="font-bold text-sm">${esc(h.ref)}</p>
+                  <p class="text-[.72rem] text-slate-500 font-semibold">${dt(h.date.toISOString())} · ${esc(h.method)}</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="font-extrabold text-sm">${fmt(h.amount, s.currency)}</p>
+                <span class="chip bg-emerald-50 text-emerald-700 mt-1">${esc(h.status)}</span>
+              </div>
+            </div>`).join('')}
+        </div>
+        <div class="mt-5 rounded-2xl bg-slate-50 border border-slate-100 p-4">
+          <p class="text-[.72rem] font-extrabold uppercase tracking-[.14em] text-slate-400">Settlement account</p>
+          <p class="text-sm font-bold mt-1.5">${esc(s.name)} · ${esc(s.currency)} account</p>
+          <p class="text-[.78rem] text-slate-500 font-semibold">•••• ${String(Math.floor(1000 + Math.random()*8999))} · registered ${esc(s.city)}</p>
+        </div>
+      </div>
+    </div>`;
+}
+function requestPayout(){ toast('Payout request submitted. Funds settle within 1–2 business days.','success'); }
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+function toggleFaq(btn){
+  const body = btn.nextElementSibling;
+  const icon = btn.querySelector('svg');
+  const open = body.style.maxHeight && body.style.maxHeight !== '0px';
+  $$('.acc-body').forEach(b => { b.style.maxHeight = '0px'; });
+  $$('#faqList button svg').forEach(s => s.style.transform = 'rotate(0deg)');
+  if(!open){
+    body.style.maxHeight = body.scrollHeight + 'px';
+    icon.style.transform = 'rotate(135deg)';
+  }
+}
+
+/* =========================================================
+   REVEAL ON SCROLL
+   ========================================================= */
+let io = null;
+function observeReveals(){
+  if(!io){
+    io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+  }
+  $$('.reveal:not(.in)').forEach(el => io.observe(el));
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  $('#year').textContent = new Date().getFullYear();
+  updateHeader();
+  renderSchools();
+  observeReveals();
+  // open first FAQ
+  const firstFaq = document.querySelector('#faqList button');
+  if(firstFaq) setTimeout(() => toggleFaq(firstFaq), 300);
+});
+window.addEventListener('resize', () => {
+  const open = document.querySelector('.acc-body[style*="max-height"]');
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') $$('.modal.open').forEach(m => closeModal(m.id));
+});
+</script>
+</body>
+</html>
